@@ -1,0 +1,99 @@
+.navbar {
+background-color: #e3f2fd;
+}
+a .font-weight-bold{
+ color:#696969;
+ font-family: Tw Cen MT;
+ font-size: 23px;
+
+}
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='black' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+  color: white;
+}
+@media (max-width: 768px) {
+.navbar {
+    background-color: lightgray;
+  }
+}
+#details {
+  background-color:#00CED1;
+  font-size: 20px;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  }
+td 
+{
+  padding-bottom: 8px;
+}
+.abc{
+  background-color: powderblue;
+/*  padding: 30px;*/
+  text-align: center;
+  font-size: 35px;
+  color: white;
+  
+ }
+
+
+
+
+
+
+ 
+  .example-small-box, .example-large-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 16px;
+    padding: 16px;
+    border-radius: 8px;
+  }
+  
+  .example-small-box {
+    height: 100px;
+    width: 100px;
+  }
+  
+  .example-large-box {
+    height: 500px;
+    width: 600px;
+  }
+  
+  .example-spacer {
+    flex: 1 1 auto;
+  }
+
+  .example-container {
+    width: 1300px;
+    margin-left: 120px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #555;
+  }
+
+  .example-container1 {
+    width: 1280px;
+    height: 200px;
+    margin: 10px;
+    border: 1px solid #555;
+  }
+
+  .example-container2 {
+    width: 1280px;
+
+    margin: 10px;
+    border: 1px solid #555;
+  }
+
+  .modal .modal-body { /* Vertical scrollbar if necessary */
+    max-height: 480px;
+    overflow-y: auto;
+}
+
+body .modal-dialog { /* Width */
+    max-width: 100%;
+}

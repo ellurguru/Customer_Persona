@@ -1,0 +1,137 @@
+<!-- <ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link active" href=".chart1">6 Months</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href=".chart2">1 Year</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href=".chart3">3 Years</a>
+  </li>
+</ul>
+
+ 
+  <highcharts-chart  class="chart1"
+    [Highcharts] = "highcharts2" 
+    [options] = "chartOptions2" 
+    style = "height: 400px; display: block;">
+ </highcharts-chart>
+ <highcharts-chart class="chart1"
+    [Highcharts] = "highcharts3" 
+    [options] = "chartOptions3" 
+    style = "height: 400px; display: block;">
+ </highcharts-chart> --> 
+<!-- Button trigger modal -->
+
+<!-- <div class="card-columns">
+      <div class="card-body text-center">
+<div type="button" class="card-text" data-toggle="modal" data-target="#myModal"> <app-piechart></app-piechart></div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+
+                </button>
+                 <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+
+            </div>
+            <div class="modal-body">
+                <div role="tabpanel">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#uploadTab" aria-controls="uploadTab" role="tab" data-toggle="tab">Upload</a>
+
+                        </li>
+                        <li role="presentation"><a href="#browseTab" aria-controls="browseTab" role="tab" data-toggle="tab">Browse</a>
+
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="uploadTab">upload Tab</div>
+                        <div role="tabpanel" class="tab-pane" id="browseTab">browseTab</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary save">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div></div>
+
+
+
+
+
+
+<div class="card-body text-center">
+<div type="button" class="card-text" data-toggle="modal" data-target="#myModal"> <app-piechart></app-piechart></div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+
+                </button>
+                 <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+
+            </div>
+            <div class="modal-body">
+                <div role="tabpanel">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#uploadTab" aria-controls="uploadTab" role="tab" data-toggle="tab">Upload</a>
+
+                        </li>
+                        <li role="presentation"><a href="#browseTab" aria-controls="browseTab" role="tab" data-toggle="tab">Browse</a>
+
+                        </li>
+                    </ul>
+                   
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="uploadTab">upload Tab</div>
+                        <div role="tabpanel" class="tab-pane" id="browseTab">browseTab</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary save">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div> -->
+
+
+<mat-tab-group>
+  <mat-tab label="6 Months"> <highcharts-chart
+    [Highcharts] = "highcharts1" 
+    [options] = "chartOptions1" 
+    style = "width: 1000px; height: 400px; display: block;">
+ </highcharts-chart> </mat-tab>
+  <mat-tab label="1 Year"> <highcharts-chart
+    [Highcharts] = "highcharts2" 
+    [options] = "chartOptions2" 
+    style = "width: 1000px; height: 400px; display: block;">
+ </highcharts-chart> </mat-tab>
+  <mat-tab label="3 Years"> <highcharts-chart
+    [Highcharts] = "highcharts3" 
+    [options] = "chartOptions3" 
+    style = "width: 1000px; height: 400px; display: block;">
+ </highcharts-chart></mat-tab>
+</mat-tab-group>
+
