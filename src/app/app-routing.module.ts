@@ -12,6 +12,7 @@ import { NetworkGraphComponent } from './network-graph/network-graph.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MapComponent } from './map/map.component';
 import { LeafletMapComponent } from './leaflet-map/leaflet-map.component';
+import { SampleChartComponent } from './sample-chart/sample-chart.component';
 
 const routes: Routes = [
 { path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -26,6 +27,7 @@ const routes: Routes = [
 { path: 'dashboard', component: DashboardComponent},
 { path: 'map', component: MapComponent},
 { path: 'maps', component: LeafletMapComponent},
+{ path:'network',component:SampleChartComponent}
 ];
 
 @NgModule({

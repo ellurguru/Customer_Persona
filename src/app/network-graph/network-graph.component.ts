@@ -4,6 +4,8 @@ import more from 'highcharts/highcharts-more';
 more(Highcharts);
 import HighchartsNetworkgraph from 'highcharts/modules/networkgraph'; 
 HighchartsNetworkgraph(Highcharts);
+import { ResultModel } from './result-model';
+import { ResultCategoriesService } from './result-categories.service';
 
 @Component({
   selector: 'app-network-graph',
@@ -12,9 +14,7 @@ HighchartsNetworkgraph(Highcharts);
 })
 export class NetworkGraphComponent implements OnInit {
   constructor() {}
-
-  ngOnInit(): void {}
-
+  ngOnInit(){}
 
 highchart1 = Highcharts;
    chartOption1 = {   
@@ -94,7 +94,6 @@ highchart1 = Highcharts;
     },
     ],
     data: [
-   
       {from:'Node 1', to:'Auto Insurance'},
       {from:'Node 1', to:'Credit Card'},
       {from:'Node 1', to:'Gasoline'},
@@ -143,8 +142,6 @@ highchart1 = Highcharts;
             },
      name:'John'
     },
-
-
      {
       id: 'ATM',
       color: 'red',
@@ -187,24 +184,19 @@ highchart1 = Highcharts;
       color: 'DarkSlateGray'
     },
     ],
-    
+  
     data: [
       {from:'Node 1', to:'ATM'},
       {from:'Node 1', to:'Auto Insurance'},
       {from:'Node 1', to:'Auto Loan'},
-       {from:'Node 1', to:'Automotive'},
-        {from:'Node 1', to:'Balance Transfers'},
-         {from:'Node 1', to:'Department Stores'},
-         {from:'Node 1', to:'Entertainment'},
-        {from:'Node 1', to:'Gasoline'},
-         {from:'Node 1', to:'Health Insurance'},
-         {from:'Node 1',to:'Home Improvement'}
-
-
-
+      {from:'Node 1', to:'Automotive'},
+      {from:'Node 1', to:'Balance Transfers'},
+      {from:'Node 1', to:'Department Stores'},
+      {from:'Node 1', to:'Entertainment'},
+      {from:'Node 1', to:'Gasoline'},
+      {from:'Node 1', to:'Health Insurance'},
+      {from:'Node 1',to:'Home Improvement'}
     ],
-
-   
   }]
   }
 }

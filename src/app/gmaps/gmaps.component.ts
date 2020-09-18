@@ -15,27 +15,28 @@ import {latLng, MapOptions, tileLayer, Map, Marker, icon, Popup, marker, LatLng}
 })
 export class GmapsComponent {
 
-map: Map;
+  map: Map;
   mapOptions: MapOptions;
   mapmodels:Mapmodel[];
   lastLayer: any;
   constructor(private router: Router, private route: ActivatedRoute,private http: HttpClient, private pservice:PersonaService,private mapservice:MapserviceService) { }
 
   ngOnInit(){
- this.initializeMapOptions();
- this.getmapsdata();
+      this.initializeMapOptions();
+      this.getmapsdata();
     }
 
-    getmapsdata(): void {
+  getmapsdata(): void {
       this.mapservice.getmapdetails().subscribe((data:any) => {
-        this.mapmodels = data;
-        console.log(this.mapmodels);
-        const lat = data.map(data => data.TRANS_LATITUDE);
-      console.log(lat);
+      this.mapmodels = data;
+      //console.log(this.mapmodels);
+      const lat = data.map(data => data.TRANS_LATITUDE);
+      //console.log(lat);
       const lon = data.map(data => data.TRANS_LONGITUDE);
-      console.log(lon);
+      //console.log(lon);
       const cat = data.map(data => data.CATEGORY);
-      console.log(cat);
+      //console.log(cat);
+
       for(var i=0;i<lat.length;i++)
       this.addSampleMarker(lat[i],lon[i],cat[i]);
       });
@@ -43,7 +44,6 @@ map: Map;
      
   onMapReady(map: Map) {
     this.map = map;
-    //this.addSampleMarker();
   }
 
   private initializeMapOptions() {

@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HighchartsChartModule } from "highcharts-angular";
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
-import { HighchartsChartModule } from 'highcharts-angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DemographicsComponent } from './demographics/demographics.component';
@@ -21,7 +21,6 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatInputModule} from '@angular/material/input';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
-import { AgmCoreModule } from '@agm/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { GmapsComponent } from './gmaps/gmaps.component';
 import { NetworkGraphComponent } from './network-graph/network-graph.component';
@@ -35,6 +34,8 @@ import { ResultsListComponent } from './results-list/results-list.component';
 //import { NominatimService } from './services/nominatim.service';
 import { MapComponent } from './map/map.component';
 import { LeafletMapComponent } from './leaflet-map/leaflet-map.component';
+import { ChartModule } from 'angular-highcharts';
+import { SampleChartComponent } from './sample-chart/sample-chart.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,7 +56,9 @@ import { LeafletMapComponent } from './leaflet-map/leaflet-map.component';
     ResultsListComponent,
     //NominatimService,
     MapComponent,
-    LeafletMapComponent
+    LeafletMapComponent,
+    SampleChartComponent
+    
 
   ],
   imports: [
@@ -63,7 +66,6 @@ import { LeafletMapComponent } from './leaflet-map/leaflet-map.component';
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
-    HighchartsChartModule,
     NgbModule,
     MatTabsModule,
     MatCardModule,
@@ -75,8 +77,10 @@ import { LeafletMapComponent } from './leaflet-map/leaflet-map.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonModule,
-    LeafletModule
-   
+    LeafletModule,
+    HighchartsChartModule,
+    ChartModule
+    
     
   ],
   providers: [],
