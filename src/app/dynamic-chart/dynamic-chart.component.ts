@@ -17,11 +17,8 @@ import { DefaultMatCalendarRangeStrategy } from '@angular/material/datepicker';
 export class DynamicChartComponent implements OnInit {
  public message:any;
  public id:any;
-  public name:any;
-  
+ public name:any;
 
-  
- 
    public CategoryModel: ResultModel[];
     title = "Categories";
     chart;
@@ -66,37 +63,20 @@ export class DynamicChartComponent implements OnInit {
 //Using Map
 let colormap = new Map<string, string>();
 
-colormap.set("Department Stores", "tan"); 
-colormap.set("Health Insurance", "yellow");
-colormap.set("Gasoline", "blue");
-colormap.set("Rent", "orange");
-colormap.set("supermarkets", "green");
-colormap.set("Auto Insurance", "violet");
-colormap.set("Balance Transfers", "Purple");
-colormap.set("Credit card", "indigo"); 
-colormap.set("Auto Loan", "blue green");
-colormap.set("Merchandise", "red");
-colormap.set("Entertainment", "red orange");
-colormap.set("Mortgage", "gray");
-colormap.set("Travel", "blue violet");
-colormap.set("Medical Services", "violet red");
-colormap.set("atm", "dandelion"); 
-colormap.set("Automotive", "cerulean");
-colormap.set("Technology", "apricot");
-colormap.set("Home Improvement", "scarlet");
+colormap.set("top1", "green");
+colormap.set("top2", "red");
+colormap.set("top3", "yellow");
+colormap.set("top4", "orange");
+colormap.set("top5", "grey");
     
 var Name;
    this.message=this.pservice.readMessage();
-      console.log("hey im here!!!!!!!!!!!!!!!!!!!");
-      console.log(this.message);
      for(let details of this.message){
      this.id=details.CLIENT_ID;
      this.name=details.FIRST;
      Name=details.FIRST;
      }
 
-
-console.log(this.id);
 var ToDate=localStorage.getItem('ToDate');
 var FromDate=localStorage.getItem('FromDate');
 var cat;
@@ -105,12 +85,13 @@ var cat;
     
         this.CategoryModel = response;
         cat=response;
-        const self = this,
+        const self = this,    
         chart = this.chart;
+        var i=1;
 
         chart.showLoading();
-var dataarray=new Array();
-var nodesarray=new Array();
+        var dataarray=new Array();
+        var nodesarray=new Array();
         setTimeout(() => {
           chart.hideLoading();
 
@@ -118,11 +99,13 @@ var nodesarray=new Array();
             dataarray.push({from:Name, to:element.CATEGORY});
             dataarray.push({from:element.CATEGORY,to:element.BILLING_PLACE});
           });
+          
           cat.forEach(element => {
-            nodesarray.push({id:element.CATEGORY, name:element.CATEGORY+'<br/> Amount : '+element.AMOUNT,color:colormap.get(element.CATEGORY)});
-            nodesarray.push({id:element.BILLING_PLACE,name:'Place : '+element.BILLING_PLACE+'<br/> Max_amount : '+element.MAX_AMOUNT,color:colormap.get(element.CATEGORY), marker: {
+            nodesarray.push({id:element.CATEGORY, name:element.CATEGORY+'<br/> Amount : '+element.AMOUNT,color:colormap.get('top'+i)});
+            nodesarray.push({id:element.BILLING_PLACE,name:'Place : '+element.BILLING_PLACE+'<br/> Max_amount : '+element.MAX_AMOUNT,color:colormap.get('top'+i), marker: {
                   radius: 20,
                  }});
+                 i++;
           });
   
           self.chartOptions.series = [

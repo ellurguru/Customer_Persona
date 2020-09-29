@@ -52,34 +52,42 @@ map: Map;
       const cat = data.map(data => data.CATEGORY);
       const amt = data.map(data => data.AMOUNT);
       const place = data.map(data => data.BILLING_PLACE);
-debugger
-      const colormap : Record<string, string> = {
-  "Department Stores": "pink", 
-  "Health Insurance": "yellow",
-  "Gasoline": "blue",
-  "Rent": "orange",
-  "supermarkets": "green",
-  "Auto Insurance": "violet",
-  "Balance Transfers": "Purple",
-  "Credit card": "indigo", 
-  "Auto Loan": "blue green",
-  "Merchandise": "red",
-  "Entertainment": "red orange",
-  "Mortgage": "gray",
-  "Travel": "blue violet",
-  "Medical Services": "violet red",
-  "atm": "dandelion", 
-  "Automotive": "#C45AEC",
-  "Technology": "apricot",
-  "Home Improvement": "scarlet"};
 
-  //console.log(colormap.Rent);
-    var color;
+      const colormap : Record<string, string> = {
+        "top1": "green",
+        "top2": "red", 
+        "top3": "yellow",
+        "top4": "orange",
+        "top5": "grey",
+        "default": "blue"};
+
      for(var i=0;i<lat.length;i++)
      {
-      color=cat[i];
-      console.log(colormap[color]);
-      this.addSampleMarkerColor(lat[i],lon[i],cat[i],amt[i],place[i],colormap[color]);
+
+      if(this.categ[0]==cat[i])
+      {
+        this.addSampleMarker(lat[i],lon[i],cat[i],amt[i],place[i],colormap['top1']);
+      }
+      else if(this.categ[1]==cat[i])
+      {
+        this.addSampleMarker(lat[i],lon[i],cat[i],amt[i],place[i],colormap['top2']);
+      }
+      else if(this.categ[2]==cat[i])
+      {
+        this.addSampleMarker(lat[i],lon[i],cat[i],amt[i],place[i],colormap['top3']);
+      }
+      else if(this.categ[3]==cat[i])
+      {
+        this.addSampleMarker(lat[i],lon[i],cat[i],amt[i],place[i],colormap['top4']);
+      }
+      else if(this.categ[4]==cat[i])
+      {
+        this.addSampleMarker(lat[i],lon[i],cat[i],amt[i],place[i],colormap['top5']);
+      }
+      else
+      {
+        this.addSampleMarker(lat[i],lon[i],cat[i],amt[i],place[i],colormap['default']);
+      }
      }
    }); 
    });
@@ -106,7 +114,7 @@ debugger
     };
   }
 
-  private addSampleMarkerColor(lat,lon,cat,amt,place,color) {
+  private addSampleMarker(lat,lon,cat,amt,place,color) {
     const marker = new Marker([lat, lon])
     .setIcon(
       icon({
@@ -125,120 +133,4 @@ debugger
           this.closePopup();
       });
 }
-
-  private addSampleMarker(lat,lon,cat,amt,place) {
-      const marker = new Marker([lat, lon])
-      .setIcon(
-        icon({
-          iconSize: [25, 41],
-          iconAnchor: [13, 41],
-          iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-grey.png'
-        }));
-    marker.addTo(this.map);
-    this.map.getZoom();
-
-    marker.bindPopup("<b>Category:</b> "+cat+"<br><b>Amount spent:</b> "+amt+"<br><b>Place:</b> "+place+"<b>",{closeButton: false, offset: L.point(0, -20)});
-     marker.on('mouseover', function (e) {
-            this.openPopup();
-        });
-        marker.on('mouseout', function (e) {
-            this.closePopup();
-        });
-  }
-
-  private addSampleMarker0(lat,lon,cat,amt,place) {
-      const marker = new Marker([lat, lon])
-      .setIcon(
-        icon({
-          iconSize: [25, 41],
-          iconAnchor: [13, 41],
-          iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png'
-        }));
-    marker.addTo(this.map);
-    this.map.getZoom();
-
-    marker.bindPopup("<b>Category:</b> "+cat+"<br><b>Amount spent:</b> "+amt+"<br><b>Place:</b> "+place+"<b>",{closeButton: false, offset: L.point(0, -20)});
-     marker.on('mouseover', function (e) {
-            this.openPopup();
-        });
-        marker.on('mouseout', function (e) {
-            this.closePopup();
-        });
-  }
-  private addSampleMarker1(lat,lon,cat,amt,place) {
-      const marker = new Marker([lat, lon])
-      .setIcon(
-        icon({
-          iconSize: [25, 41],
-          iconAnchor: [13, 41],
-          iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png'
-        }));
-    marker.addTo(this.map);
-    this.map.getZoom();
-
-    marker.bindPopup("<b>Category:</b> "+cat+"<br><b>Amount spent:</b> "+amt+"<br><b>Place:</b> "+place+"<b>",{closeButton: false, offset: L.point(0, -20)});
-    marker.on('mouseover', function (e) {
-            this.openPopup();
-        });
-        marker.on('mouseout', function (e) {
-            this.closePopup();
-        });
-  }
-  private addSampleMarker2(lat,lon,cat,amt,place) {
-      const marker = new Marker([lat, lon])
-      .setIcon(
-        icon({
-          iconSize: [25, 41],
-          iconAnchor: [13, 41],
-          iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-orange.png'
-        }));
-    marker.addTo(this.map);
-    this.map.getZoom();
-
-    marker.bindPopup("<b>Category:</b> "+cat+"<br><b>Amount spent:</b> "+amt+"<br><b>Place:</b> "+place+"<b>",{closeButton: false, offset: L.point(0, -20)});
-    marker.on('mouseover', function (e) {
-            this.openPopup();
-        });
-        marker.on('mouseout', function (e) {
-            this.closePopup();
-        });
-  }
-  private addSampleMarker3(lat,lon,cat,amt,place) {
-      const marker = new Marker([lat, lon])
-      .setIcon(
-        icon({
-          iconSize: [25, 41],
-          iconAnchor: [13, 41],
-          iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-yellow.png'
-        }));
-    marker.addTo(this.map);
-    this.map.getZoom();
-
-    marker.bindPopup("<b>Category:</b> "+cat+"<br><b>Amount spent:</b> "+amt+"<br><b>Place:</b> "+place+"<b>",{closeButton: false, offset: L.point(0, -20)});
-    marker.on('mouseover', function (e) {
-            this.openPopup();
-        });
-        marker.on('mouseout', function (e) {
-            this.closePopup();
-        });
-  }
-  private addSampleMarker4(lat,lon,cat,amt,place) {
-      const marker = new Marker([lat, lon])
-      .setIcon(
-        icon({
-          iconSize: [25, 41],
-          iconAnchor: [13, 41],
-          iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-violet.png'
-        }));
-    marker.addTo(this.map);
-    this.map.getZoom();
-
-    marker.bindPopup("<b>Category:</b> "+cat+"<br><b>Amount spent:</b> "+amt+"<br><b>Place:</b> "+place+"<b>",{closeButton: false, offset: L.point(0, -20)});
-    marker.on('mouseover', function (e) {
-            this.openPopup();
-        });
-        marker.on('mouseout', function (e) {
-            this.closePopup();
-        });
-  }
 }
