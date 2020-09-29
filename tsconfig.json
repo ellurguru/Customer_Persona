@@ -14,7 +14,10 @@
       "path": "./tsconfig.spec.json"
     }
 ],
-"compilerOptions": {
-  "resolveJsonModule": true
-}
+
+  "compilerOptions": {
+      "experimentalDecorators": true,
+      "allowJs": true
+  }
+
 }

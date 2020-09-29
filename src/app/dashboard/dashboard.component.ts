@@ -1,37 +1,66 @@
-import { Component, OnInit } from '@angular/core';
-import * as Highcharts from 'highcharts';
+import { Component, OnInit,Input } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { PersonaService } from '../persona.service';
+import {Demographics} from "./../demo";
+import { ResultModel } from './../result-model';
+import {FormControl,FormGroup,FormBuilder} from '@angular/forms';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-title = 'appBootstrap';
-  
-  closeResult: string;
-  constructor(private modalService: NgbModal) {}
-open(content) {
-    this.modalService.open(content,  {ariaLabelledBy: 'modal-basic-title',size: <any>'xl' }).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-  
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return  `with: ${reason}`;
-    }
-  }
-    
-  
+public mess :any[] = [];
+ public CategoryModel: ResultModel[];
+public id:any;
+public fromd:any;
+public tod:any;
+public from_date:any;
+ToDate = new FormControl(new Date(localStorage.getItem('ToDate')));
+FromDate = new FormControl(new Date(localStorage.getItem('FromDate')));
 
-  ngOnInit() {
+constructor(private pservice:PersonaService){ 
   }
-}
+  ngOnInit() {
+
+      this.mess=this.pservice.readMessage();
+      console.log("hey im here!!");
+      console.log(this.mess);  
+      for(let details of this.mess){
+     this.id=details.client_id;
+     
+  
+    
+     }  
+  }
+
+
+    onSubmit() {
+      debugger;
+      localStorage.setItem("ToDate", this.ToDate.value.getFullYear() + "-" + this.ToDate.value.getMonth() + "-" + this.ToDate.value.getDate());
+      localStorage.setItem("FromDate", this.FromDate.value.getFullYear() + "-" + this.FromDate.value.getMonth() + "-" + this.FromDate.value.getDate());
+      window.location.reload();
+  }}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -21,12 +21,17 @@
            [formControl]="myControl"
            [matAutocomplete]="auto">
     <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let option1 of filteredOptions1 | async" [value]="option1">
+      <mat-option *ngFor="let option of filteredOptions5 | async" [value]="option.client_id">
+      {{option.client_id}} | {{option.first}} 
+    </mat-option>
+     <!--  <mat-option *ngFor="let option1 of filteredOptions1 | async" [value]="option1">
+      
         {{option1}}
-      </mat-option>
-      <mat-option *ngFor="let option2 of filteredOptions2 | async" [value]="option2">
-        {{option2}}
-      </mat-option>
+   
+      </mat-option> -->
+      <mat-option *ngFor="let option2 of filteredOptions6 | async" [value]="option2.first">
+        {{option2.first}} | {{option2.client_id}} 
+      </mat-option> 
       <mat-option *ngFor="let option3 of filteredOptions3 | async" [value]="option3">
         {{option3}}
       </mat-option>
@@ -38,9 +43,9 @@
 
         <br><br>
 
-        <mat-form-field color="primary" appearance="fill">
+        <!-- <mat-form-field color="primary" appearance="fill">
   <mat-label>Select from date</mat-label>
-  <input matInput [matDatepicker]="picker1">
+  <input matInput [matDatepicker]="picker1"  [formControl]="fromdate">
   <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
   <mat-datepicker #picker1></mat-datepicker>
 </mat-form-field>
@@ -54,7 +59,8 @@
       </mat-form-field>
 
         <br><br>
-         <button mat-raised-button class="button" (click)="onSubmit()">Submit</button>
+ -->         <button mat-raised-button class="button" type="button" (click)="onSubmit()">Submit</button>
+        
       </div>   
     </form>
 </div>
