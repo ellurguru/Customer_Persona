@@ -69,7 +69,6 @@ getcid1(): Observable<any> {
    }
 
    categorytop5(id,FromDate,ToDate): Observable<any> {
-    debugger;
       return this.http.get(`${baseUrl5}/${id}/${FromDate}/${ToDate}`). pipe(
              map((data: ResultModel[]) => {
                return data;

@@ -32,6 +32,7 @@ import { DynamicChartComponent } from './dynamic-chart/dynamic-chart.component';
 import { PersonaService } from './persona.service';
 import { MY_DATE_FORMATS } from './my-date-formats';
 import { NetworkOnDateComponent } from './network-on-date/network-on-date.component';
+import {MatSelectModule} from '@angular/material/select';
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,9 +67,8 @@ import { NetworkOnDateComponent } from './network-on-date/network-on-date.compon
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonModule,
-    LeafletModule
-   
-    
+    LeafletModule,
+    MatSelectModule
   ],
   providers: [PersonaService,{ provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS }],
   bootstrap: [AppComponent]

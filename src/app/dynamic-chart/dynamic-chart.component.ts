@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,AfterViewInit, ViewChild,Input,Output,EventEmitter,ChangeDetectorRef } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import more from 'highcharts/highcharts-more';
 more(Highcharts);
@@ -6,8 +6,7 @@ import HighchartsNetworkgraph from 'highcharts/modules/networkgraph';
 HighchartsNetworkgraph(Highcharts);
 import { ResultModel } from './../result-model';
 import { PersonaService } from '../persona.service';
-import {Demographics} from "./../demo";
-import { DefaultMatCalendarRangeStrategy } from '@angular/material/datepicker';
+import { GmapsComponent } from '../gmaps/gmaps.component';
 
 @Component({
   selector: 'app-dynamic-chart',
@@ -18,6 +17,10 @@ export class DynamicChartComponent implements OnInit {
  public message:any;
  public id:any;
  public name:any;
+
+ @Input() CategoryValue: string;
+ 
+ @Output() CategoryClicked: EventEmitter<string> = new EventEmitter();
 
    public CategoryModel: ResultModel[];
     title = "Categories";
@@ -41,18 +44,19 @@ export class DynamicChartComponent implements OnInit {
           layoutAlgorithm: {
             enableSimulation: true,
 
-          }
+          },
         }
       },
       series: [],
       tooltip:{}
     };
-
-    constructor(private pservice: PersonaService) {
+   
+    constructor(private pservice: PersonaService,private cdr: ChangeDetectorRef) {
       const self = this;
       this.chartCallback = chart => {
         self.chart = chart;
         this.onInitChart();
+        
       };
     }
    ngOnInit() {
@@ -99,10 +103,10 @@ var cat;
             dataarray.push({from:Name, to:element.CATEGORY});
             dataarray.push({from:element.CATEGORY,to:element.BILLING_PLACE});
           });
-          
+
           cat.forEach(element => {
-            nodesarray.push({id:element.CATEGORY, name:element.CATEGORY+'<br/> Amount : '+element.AMOUNT,color:colormap.get('top'+i)});
-            nodesarray.push({id:element.BILLING_PLACE,name:'Place : '+element.BILLING_PLACE+'<br/> Max_amount : '+element.MAX_AMOUNT,color:colormap.get('top'+i), marker: {
+            nodesarray.push({id:element.CATEGORY,events:{click:function(){console.log(element.CATEGORY); localStorage.setItem('category',element.CATEGORY)}},name:element.CATEGORY+'<br/> Amount : '+element.AMOUNT,color:colormap.get('top'+i)});
+            nodesarray.push({id:element.BILLING_PLACE,name:'Place : '+element.BILLING_PLACE+'<br/> Max_amount : '+element.MAX_AMOUNT,color:colormap.get('top'+i),marker: {
                   radius: 20,
                  }});
                  i++;
@@ -126,10 +130,17 @@ var cat;
                   },
                   nodes:nodesarray,
                   data: dataarray
+                 
               }
           ];
           self.updateFromInput = true;
         }, 2000);
       });
+      
+  }
+  clickme(category)
+  {
+debugger
+console.log(category)
   }
 }

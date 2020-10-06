@@ -1,67 +1,66 @@
-<nav class="navbar navbar-expand-sm fixed-top">
-  <a class="navbar-brand" href="#"><img src="./assets/images/logo1.png" class="img-circle" height="60px"></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="personal"><p class="font-weight-bold">Personal</p></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="risk"><p class="font-weight-bold">Risk</p></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#"><p class="font-weight-bold">Product</p></a>
-      </li>  
-      <li class="nav-item">
-        <a class="nav-link" href="#"><p class="font-weight-bold">NN</p></a>
-      </li>   
-    </ul>
-  </div>  
-</nav>
-<div class=".container" style="margin-top:110px"> 
-   <div  *ngFor="let details of mess">
-  <div class="abc">
-    <pre style="text-align:left;font-size:30px;font-family:Book Antiqua;letter-spacing: 2px;">
-  <em><b>{{details.FIRST}} {{details.LAST}}</b></em>
+<div class="main-content" style="background-color: #E6E6FA"> 
+   <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
+    <ul class="navbar-nav align-items-center d-none d-md-flex">
+          <li class="nav-item">
+             <a class="nav-link" href="home"><p class="font-weight-bold">Home</p></a></li></ul>
+   </nav>    
+      <div class="header pb-8 pt-5 pt-lg-8 d-flex" style="height: 100px; background-image: url(assets/images/logo.png); background-size: cover; background-position: center top;">
+      <!-- Mask -->
+      <span class="mask bg-gradient-default opacity-8"></span>
+ 
+   
+    <div class="container-fluid">
+      <div class="row ">
+       <div class="col">
+         <h1 class="display-2 text-white"></h1>
+       </div>
+    </div>
+  </div></div>
+  <div  *ngFor="let details of mess">
+   <div class="row justify-content-center">
+     <div class="col-xl-12 order-xl-1 mb-5 mb-xl-0">
+        <div class="container-fluid mt--7">
+       <div class="card card-profile shadow" style="height:300px;">                 
+         <div class="card-body pt-0 pt-md-4">
+            
+<div class="abc" style="background-color: #D8BFD8">
+ <pre style="text-align:left;font-size:30px;font-family:Book Antiqua;letter-spacing: 2px;">
+<em><b>{{details.FIRST}} {{details.LAST}}</b></em>
 </pre>
 </div>
 
 
-    <div class="row">
-    <div class="col-md-12">
-    <div class="column">
-        <div class="card" id="detail">
+ <div class="row">
 
-        <table>
-        <tr>
-          <td style="width:200px;height:190px;">
-            &nbsp;<img class="img1" src="assets/images/person.jpg" width="200" height="190">
-          </td>&nbsp;&nbsp;
-    <td style="vertical-align: top;">
-    <table style="text-indent:20px;text-align: justify;">
-    <tr><td style="font-family:Garamond;"><b>Id</b></td><td>:</td><td style="font-family:Courier"> {{details.CLIENT_ID}}</td></tr>
-     <tr><td style="font-family:Garamond"><b>Age</b></td><td>:</td><td style="font-family:Courier">{{details.AGE}} </td></tr>
-        <tr><td style="font-family:Garamond"><b>Date of Birth</b></td><td>:</td><td style="font-family:Courier"> {{details.DOB}}</td></tr>
-   <tr><td style="font-family:Garamond"><b>Sex</b></td><td>:</td><td style="font-family:Courier"> {{details.SEX}}</td></tr>
-    <tr><td style="font-family:Garamond"><b>Address</b></td><td>:</td><td style="font-family:Courier">{{details.ADDRESS_1}},{{details.CITY}}</td>&nbsp;&nbsp;
-  
+ <div class="col">
+    
 
- </table>
-  </td></tr>
-   <pre style="font-size:15px;font-family:Book Antiqua;letter-spacing: 1px;">    <i class="fa fa-phone" style="font-size:18px"></i>  {{details.PHONE}}          
-    <i class="fa fa-envelope" style="font-size:18px"></i>  {{details.EMAIL}} </pre>
+     <div class="table-responsive">
+     <table>
+     <tr>
+       <td style="height:100px;">
+         &nbsp;<img class="img1" src="assets/images/person.jpg" class="rounded-circle" width="190" height="190">
+       </td>
+ <td style="vertical-align: top;">
+ <table style="table-layout: auto;text-indent:20px;text-align: justify;">
+ <tr><td><b><pre style="font-family:Garamond;font-size:20px;">Id</pre></b></td><td><pre>:</pre></td><td><pre><h3 class="font-weight-light" style="font-family:Courier;">{{details.CLIENT_ID}}</h3></pre></td>
+ <td><b><pre style="font-family:Garamond;font-size:20px;">Age</pre></b></td><td><pre>:</pre></td><td><pre><h3 class="font-weight-light" style="font-family:Courier;">{{details.AGE}}</h3></pre> </td></tr>
+ <tr><td><b><pre style="font-family:Garamond;font-size:20px;">Date of Birth</pre></b></td><td><pre>:</pre></td><td><pre><h3 class="font-weight-light" style="font-family:Courier;">{{details.DOB}}</h3></pre></td>
+<td><b><pre style="font-family:Garamond;font-size:20px;">Sex</pre></b></td><td><pre>:</pre></td><td><pre><h3 class="font-weight-light" style="font-family:Courier;">{{details.SEX}}</h3></pre></td></tr>
+<tr><td><b><pre style="font-family:Garamond;font-size:20px;">Phone Number</pre></b></td><td><pre>:</pre></td><td><pre><h3 class="font-weight-light" style="font-family:Courier;">{{details.PHONE}}</h3></pre></td>
+<td><b><pre style="font-family:Garamond;font-size:20px;">Email Id</pre></b></td><td><pre>:</pre></td><td><pre><h3 class="font-weight-light" style="font-family:Courier;">{{details.EMAIL}}</h3></pre></td></tr>
+ <tr><td><b><pre style="font-family:Garamond;font-size:20px;">Address</pre></b></td><td><pre>:</pre></td><td><pre><h3 class="font-weight-light" style="font-family:Courier;">{{details.ADDRESS_1}},{{details.CITY}}</h3></pre></td></tr>
+
+
 </table>
+</td></tr>
 
-
-
-  </div></div>
-</div></div>
+</table></div>
+</div>
+</div>
+  </div></div></div></div></div>
 <br>
 <div style="text-align:center;">
-
-
 <form>
   <mat-form-field appearance="fill">
     <mat-label>Select from date</mat-label>
@@ -78,8 +77,7 @@
   </mat-form-field>
    &nbsp;&nbsp;
 
-  <button mat-raised-button class="button" type="button" (click)="onSubmit()">Submit</button>
-
+  <button mat-raised-button class="button" style="height: 2.5em;" type="button" (click)="onSubmit()" >Submit</button>
 </form> 
 
 </div>
@@ -87,19 +85,42 @@
   <table>
    <tr><td  style="border: 1px solid black;">
     <mat-card style="width:700px; height: 600px;">
-        <app-dynamic-chart></app-dynamic-chart>
+        <!-- <app-dynamic-chart [CategoryValue]=ClickCounter (CategoryClicked)="resetChildForm($event)"></app-dynamic-chart> -->
+        <div class="boxChart__container">
+   
+          <div (click)="toggleDisplayDivIf()">
+            <highcharts-chart
+              id="container"
+              [Highcharts]="Highcharts"
+              [constructorType]="chartConstructor"
+              [options]="chartOptions"
+              [callbackFunction]="chartCallback"
+              [(update)]="updateFromInput"
+              [oneToOne]="true"
+              [click]= TriggerMap
+              style="width:560px; height: 500px;display: block;">
+            </highcharts-chart>
+            
+          </div>
+        </div>
      </mat-card>
    </td>
    &nbsp;
   <td  style="border: 1px solid black;">
     <mat-card style="width:700px;height: 600px;">
-      <app-gmaps></app-gmaps> 
+     
+      <!-- <app-gmaps [resetFormSubject]="resetFormSubject.asObservable()"></app-gmaps>  -->
+      <div id="map"
+     leaflet
+     (leafletMapReady)="onMapReady($event)"
+     [leafletOptions]="mapOptions"
+     >
+</div>
      </mat-card></td>  
     </tr> 
   </table>
 </div>
-</div>
-</div>
+</div></div>
 
 
 
