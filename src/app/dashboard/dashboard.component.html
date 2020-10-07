@@ -2,7 +2,9 @@
    <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
     <ul class="navbar-nav align-items-center d-none d-md-flex">
           <li class="nav-item">
-             <a class="nav-link" href="home"><p class="font-weight-bold">Home</p></a></li></ul>
+             <a class="nav-link" href="home"><p class="font-weight-bold">Home</p></a></li>
+             <li class="nav-item">
+              <a class="nav-link" href="dashboard/123"><p class="font-weight-bold">My Persona</p></a></li></ul>
    </nav>    
       <div class="header pb-8 pt-5 pt-lg-8 d-flex" style="height: 100px; background-image: url(assets/images/logo.png); background-size: cover; background-position: center top;">
       <!-- Mask -->
@@ -61,6 +63,8 @@
   </div></div></div></div></div>
 <br>
 <div style="text-align:center;">
+  <div class="card-body pt-0 pt-md-4">
+  <div class="card card-profile shadow" style="height:800px;padding-top: 30px;">  
 <form>
   <mat-form-field appearance="fill">
     <mat-label>Select from date</mat-label>
@@ -79,15 +83,17 @@
 
   <button mat-raised-button class="button" style="height: 2.5em;" type="button" (click)="onSubmit()" >Submit</button>
 </form> 
-
-</div>
 <div class="row justify-content-md-center">
   <table>
-   <tr><td  style="border: 1px solid black;">
-    <mat-card style="width:700px; height: 600px;">
+   <tr><td>
+    <mat-card style="width:700px; height: 600px;border: 1px solid black;">
         <!-- <app-dynamic-chart [CategoryValue]=ClickCounter (CategoryClicked)="resetChildForm($event)"></app-dynamic-chart> -->
         <div class="boxChart__container">
-   
+          <div class="abc" style="background-color: #D8BFD8">
+          <pre style="text-align:left;font-size:20px;font-family:Book Antiqua;letter-spacing: 2px;">
+            <em><b>Categories Based On Total Money Spent</b></em>
+            </pre>
+          </div>
           <div (click)="toggleDisplayDivIf()">
             <highcharts-chart
               id="container"
@@ -106,9 +112,13 @@
      </mat-card>
    </td>
    &nbsp;
-  <td  style="border: 1px solid black;">
-    <mat-card style="width:700px;height: 600px;">
-     
+  <td>
+    <mat-card style="width:700px; height: 600px;border: 1px solid black;">
+      <div class="abc" style="background-color: #D8BFD8">
+        <pre style="text-align:left;font-size:20px;font-family:Book Antiqua;letter-spacing: 2px;">
+          <em><b>Map with markers</b></em>
+          </pre>
+        </div>
       <!-- <app-gmaps [resetFormSubject]="resetFormSubject.asObservable()"></app-gmaps>  -->
       <div id="map"
      leaflet
@@ -120,6 +130,10 @@
     </tr> 
   </table>
 </div>
+</div>
+</div>
+</div>
+
 </div></div>
 
 

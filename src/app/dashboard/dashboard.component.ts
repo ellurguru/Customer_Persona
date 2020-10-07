@@ -81,7 +81,7 @@ FromDate = new FormControl(new Date(localStorage.getItem('FromDate')));
         type: "networkgraph",
       },
       title: {
-        text: "Categories Based On Total Money Spent"
+        text: ""
       },
       
       plotOptions: {
@@ -133,13 +133,10 @@ var cat;
         var images='url(assets/images/person.jpg)'
         setTimeout(() => {
           chart.hideLoading();
-          //var Image: new (width?: 5, height?: 5) => HTMLOrSVGImageElement
-
           cat.forEach(element => {
             dataarray.push({from:Name, to:element.CATEGORY});
             dataarray.push({from:element.CATEGORY,to:element.BILLING_PLACE});
           });
-
           cat.forEach(element => {
             debugger
             nodesarray.push({id:Name,name:' ', marker:{symbol:images,height:100,width:100,shape:L.Circle}
@@ -151,8 +148,6 @@ var cat;
                 localStorage.setItem('category',element.CATEGORY); 
                 var color=colormap1['top'+i];
                 localStorage.setItem('color',color);
-               // debugger;
-                //var categoryarray1 = JSON.parse(localStorage.getItem("categoryarray1")); 
               }},
                 name:element.CATEGORY+'<br/> Amount : '+element.AMOUNT,color:colormap1['top'+i]});
                
@@ -212,21 +207,17 @@ toggleDisplayDivIf()
 
  public categ:any;
  public maparray:any;
-
   
   lastLayer: any;
   constructor(private router: Router, private route: ActivatedRoute,private http: HttpClient, private pservice:PersonaService,) {}
 
   
     getmapsdata(): void {
-      debugger;
-    this.message=this.pservice.readMessage();
-      console.log("hey im here!!!!!!!!!!!!!!!!!!!");
-      console.log(this.message);
+     this.message=this.pservice.readMessage();
      for(let details of this.message){
      this.id=details.CLIENT_ID;
      }
-     console.log(this.id);
+
      var ToDate=localStorage.getItem('ToDate');
      var FromDate=localStorage.getItem('FromDate');
      this.pservice.categorytop5(this.id,FromDate,ToDate).subscribe((data:any) => {
@@ -268,16 +259,7 @@ toggleDisplayDivIf()
 
      for(var i=0;i<lat.length;i++)
      {
-      // if(localStorage.getItem("category")!=null && localStorage.getItem("category")!='undefined')
-      // {
-      //   //this.RemoveMarkers(lat[i],lon[i],colormap['top1']);
-      //   if(localStorage.getItem("category")==cat[i])
-      //   {
-      //     this.addSampleMarker(lat[i],lon[i],cat[i],amt[i],place[i],localStorage.getItem("color"));
-      //   }
-        
-      // }
-      // else{
+
         if(localStorage.getItem("category")!=null && localStorage.getItem("category")!='undefined')
         {
           if(localStorage.getItem("category")==cat[i])
@@ -331,14 +313,9 @@ toggleDisplayDivIf()
             this.addSampleMarker(lat[i],lon[i],cat[i],amt[i],place[i],colormap['default']);
           }
         }
-       
 
-      //}
-
-     
      }
     localStorage.removeItem('category');
-    //localStorage.removeItem('color');
    }); 
    });
   }
