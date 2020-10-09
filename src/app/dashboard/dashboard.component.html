@@ -22,41 +22,38 @@
    <div class="row justify-content-center">
      <div class="col-xl-12 order-xl-1 mb-5 mb-xl-0">
         <div class="container-fluid mt--7">
-       <div class="card card-profile shadow" style="height:300px;">                 
+       <div class="card card-profile shadow" style="height:330px;">                 
          <div class="card-body pt-0 pt-md-4">
             
 <div class="abc" style="background-color: #D8BFD8">
  <pre style="text-align:left;font-size:30px;font-family:Book Antiqua;letter-spacing: 2px;">
-<em><b>{{details.FIRST}} {{details.LAST}}</b></em>
+<em><b> {{details.FIRST}} {{details.LAST}}</b></em>
 </pre>
 </div>
-
-
  <div class="row">
-
- <div class="col">
-    
-
+ <div class="col-xl-8">
      <div class="table-responsive">
      <table>
-     <tr>
-       <td style="height:100px;">
-         &nbsp;<img class="img1" src="assets/images/person.jpg" class="rounded-circle" width="190" height="190">
-       </td>
- <td style="vertical-align: top;">
- <table style="table-layout: auto;text-indent:20px;text-align: justify;">
- <tr><td><b><pre style="font-family:Garamond;font-size:20px;">Id</pre></b></td><td><pre>:</pre></td><td><pre><h3 class="font-weight-light" style="font-family:Courier;">{{details.CLIENT_ID}}</h3></pre></td>
- <td><b><pre style="font-family:Garamond;font-size:20px;">Age</pre></b></td><td><pre>:</pre></td><td><pre><h3 class="font-weight-light" style="font-family:Courier;">{{details.AGE}}</h3></pre> </td></tr>
- <tr><td><b><pre style="font-family:Garamond;font-size:20px;">Date of Birth</pre></b></td><td><pre>:</pre></td><td><pre><h3 class="font-weight-light" style="font-family:Courier;">{{details.DOB}}</h3></pre></td>
-<td><b><pre style="font-family:Garamond;font-size:20px;">Sex</pre></b></td><td><pre>:</pre></td><td><pre><h3 class="font-weight-light" style="font-family:Courier;">{{details.SEX}}</h3></pre></td></tr>
-<tr><td><b><pre style="font-family:Garamond;font-size:20px;">Phone Number</pre></b></td><td><pre>:</pre></td><td><pre><h3 class="font-weight-light" style="font-family:Courier;">{{details.PHONE}}</h3></pre></td>
-<td><b><pre style="font-family:Garamond;font-size:20px;">Email Id</pre></b></td><td><pre>:</pre></td><td><pre><h3 class="font-weight-light" style="font-family:Courier;">{{details.EMAIL}}</h3></pre></td></tr>
- <tr><td><b><pre style="font-family:Garamond;font-size:20px;">Address</pre></b></td><td><pre>:</pre></td><td><pre><h3 class="font-weight-light" style="font-family:Courier;">{{details.ADDRESS_1}},{{details.CITY}}</h3></pre></td></tr>
+        <tr>
+          <td style="height:50px;vertical-align: middle;">
+        <img class="img1" src="assets\images\person.jpg" class="rounded-circle" width="190" height="190">
+          </td>
+    <td style="vertical-align: top;">
+    <table style="table-layout: auto;text-indent:15px; border-spacing:0px;padding: 1px;">
+    <tr><td><b><pre style="font-family:Garamond;font-size:20px;">Id<br><h3 class="font-weight-light" style="font-family:Courier;">{{details.CLIENT_ID}}</h3></pre></b></td>
+    <td><b><pre style="font-family:Garamond;font-size:20px;">Age<br><h3 class="font-weight-light" style="font-family:Courier;">{{details.AGE}}</h3></pre></b></td>
+  <td><b><pre style="font-family:Garamond;font-size:20px;">Date of Birth<br><h3 class="font-weight-light" style="font-family:Courier;">{{details.DOB}}</h3></pre></b></td></tr>
 
+    <tr><td><b><pre style="font-family:Garamond;font-size:20px;">Sex<br><h3 class="font-weight-light" style="font-family:Courier;">{{details.SEX}}</h3></pre></b></td>
+    <td><b><pre style="font-family:Garamond;font-size:20px;">Phone Number<br><h3 class="font-weight-light" style="font-family:Courier;">{{details.PHONE}}</h3></pre></b></td>
+  <td><b><pre style="font-family:Garamond;font-size:20px;">Email Id<br><h3 class="font-weight-light" style="font-family:Courier;">{{details.EMAIL}}</h3></pre></b></td></tr>
 
-</table>
-</td></tr>
+<tr><td><b><pre style="font-family:Garamond;font-size:20px;">City<br><h3 class="font-weight-light" style="font-family:Courier;">{{details.CITY}}</h3></pre></b></td>
+  <td><b><pre style="font-family:Garamond;font-size:20px;">Address<br><h3 class="font-weight-light" style="font-family:Courier;">{{details.ADDRESS_1}}</h3></pre></b></td></tr>
 
+ </table>
+  </td></tr>
+   
 </table></div>
 </div>
 </div>
@@ -86,7 +83,7 @@
 <div class="row justify-content-md-center">
   <table>
    <tr><td>
-    <mat-card style="width:700px; height: 600px;border: 1px solid black;">
+    <mat-card style="width:650px; height: 600px;border: 1px solid black;">
         <!-- <app-dynamic-chart [CategoryValue]=ClickCounter (CategoryClicked)="resetChildForm($event)"></app-dynamic-chart> -->
         <div class="boxChart__container">
           <div class="abc" style="background-color: #D8BFD8">
@@ -103,7 +100,6 @@
               [callbackFunction]="chartCallback"
               [(update)]="updateFromInput"
               [oneToOne]="true"
-              [click]= TriggerMap
               style="width:560px; height: 500px;display: block;">
             </highcharts-chart>
             
@@ -113,7 +109,8 @@
    </td>
    &nbsp;
   <td>
-    <mat-card style="width:700px; height: 600px;border: 1px solid black;">
+    <mat-card style="width:650px; height: 600px;border: 1px solid black;">
+       <div class="boxChart__container">
       <div class="abc" style="background-color: #D8BFD8">
         <pre style="text-align:left;font-size:20px;font-family:Book Antiqua;letter-spacing: 2px;">
           <em><b>Map with markers</b></em>
@@ -125,7 +122,7 @@
      (leafletMapReady)="onMapReady($event)"
      [leafletOptions]="mapOptions"
      >
-</div>
+</div></div>
      </mat-card></td>  
     </tr> 
   </table>
@@ -135,23 +132,3 @@
 </div>
 
 </div></div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

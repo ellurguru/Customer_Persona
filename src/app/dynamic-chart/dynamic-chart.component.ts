@@ -1,4 +1,4 @@
-import { Component, OnInit,AfterViewInit, ViewChild,Input,Output,EventEmitter,ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import more from 'highcharts/highcharts-more';
 more(Highcharts);
@@ -6,7 +6,8 @@ import HighchartsNetworkgraph from 'highcharts/modules/networkgraph';
 HighchartsNetworkgraph(Highcharts);
 import { ResultModel } from './../result-model';
 import { PersonaService } from '../persona.service';
-import { GmapsComponent } from '../gmaps/gmaps.component';
+import {Demographics} from "./../demo";
+import { DefaultMatCalendarRangeStrategy } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-dynamic-chart',
@@ -17,10 +18,7 @@ export class DynamicChartComponent implements OnInit {
  public message:any;
  public id:any;
  public name:any;
-
- @Input() CategoryValue: string;
- 
- @Output() CategoryClicked: EventEmitter<string> = new EventEmitter();
+public data :any[] = [];
 
    public CategoryModel: ResultModel[];
     title = "Categories";
@@ -44,19 +42,18 @@ export class DynamicChartComponent implements OnInit {
           layoutAlgorithm: {
             enableSimulation: true,
 
-          },
+          }
         }
       },
       series: [],
       tooltip:{}
     };
-   
-    constructor(private pservice: PersonaService,private cdr: ChangeDetectorRef) {
+
+    constructor(private pservice: PersonaService) {
       const self = this;
       this.chartCallback = chart => {
         self.chart = chart;
         this.onInitChart();
-        
       };
     }
    ngOnInit() {
@@ -76,71 +73,99 @@ colormap.set("top5", "grey");
 var Name;
    this.message=this.pservice.readMessage();
      for(let details of this.message){
-     this.id=details.CLIENT_ID;
-     this.name=details.FIRST;
-     Name=details.FIRST;
+     this.id=details.client_id;
+     this.name=details.first;
+     Name=details.first;
      }
 
 var ToDate=localStorage.getItem('ToDate');
 var FromDate=localStorage.getItem('FromDate');
+console.log(ToDate);
+console.log(FromDate);
+
 var cat;
+var cat1;
   this.pservice.categorytop5(this.id,FromDate,ToDate).subscribe(
     response => {
     
         this.CategoryModel = response;
         cat=response;
+         this.pservice.childnodes(this.id,FromDate,ToDate).subscribe(
+    response => {
+    cat1=response;
+    console.log(cat1);
+
         const self = this,    
         chart = this.chart;
         var i=1;
-
+var count=1;
         chart.showLoading();
         var dataarray=new Array();
         var nodesarray=new Array();
+        var images='url(assets/images/person1.jpg)';
+
         setTimeout(() => {
           chart.hideLoading();
 
           cat.forEach(element => {
             dataarray.push({from:Name, to:element.CATEGORY});
-            dataarray.push({from:element.CATEGORY,to:element.BILLING_PLACE});
+            cat1.forEach(element1 =>{
+            
+            if(element.CATEGORY==element1.CATEGORY){
+            if(count<=15){
+            dataarray.push({from:element.CATEGORY,to:element1.BILLING_PLACE});}count++;}});
           });
-
+          
           cat.forEach(element => {
-            nodesarray.push({id:element.CATEGORY,events:{click:function(){console.log(element.CATEGORY); localStorage.setItem('category',element.CATEGORY)}},name:element.CATEGORY+'<br/> Amount : '+element.AMOUNT,color:colormap.get('top'+i)});
-            nodesarray.push({id:element.BILLING_PLACE,name:'Place : '+element.BILLING_PLACE+'<br/> Max_amount : '+element.MAX_AMOUNT,color:colormap.get('top'+i),marker: {
-                  radius: 20,
+          nodesarray.push({id:Name,name:' ', marker: {
+            symbol: images,width:50,height:50,borderRadius:50
+
+        }});
+
+            nodesarray.push({id:element.CATEGORY, name:element.CATEGORY+'<br/> Amount : '+element.AMOUNT,color:colormap.get('top'+i),});
+cat1.forEach(element1 => {
+
+ if(element.CATEGORY==element1.CATEGORY){
+ 
+            nodesarray.push({id:element1.BILLING_PLACE,name:'Place : '+element1.BILLING_PLACE+'<br/> Amount : '+element1.AMOUNT,color:colormap.get('top'+i), marker: {
+                  radius: 20
                  }});
-                 i++;
-          });
+                 }
+                 
+          });i++;});
   
           self.chartOptions.series = [
             {
                 dataLabels: {
                   enabled: true,
+                borderRadius: 15,
+                //backgroundColor: 'rgba(252, 255, 197, 0.7)',
+                borderWidth: 1,
+                //borderColor: '#AAA',
+                padding:5,
 
                   linkFormat: '',
-                  allowOverlap: false,
+                  allowOverlap: true,
                   showInLegend: true,
                   align:'center',
                    style: {
-                    textOutline: false 
-                }
+                    textOutline: false,
+                    textOverflow: 'ellipsis'
+                },
+              
                 },
                 marker: {
                     radius: 55,
+                    symbol:'circle'
                   },
                   nodes:nodesarray,
                   data: dataarray
-                 
               }
           ];
+
           self.updateFromInput = true;
         }, 2000);
-      });
-      
-  }
-  clickme(category)
-  {
-debugger
-console.log(category)
+
+      });});
   }
 }

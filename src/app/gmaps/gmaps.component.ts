@@ -7,17 +7,12 @@ import {Locations} from "./../locations";
 import * as L from 'leaflet';
 import {latLng, MapOptions, tileLayer, Map, Marker, icon} from 'leaflet';
 import {DEFAULT_LATITUDE, DEFAULT_LONGITUDE} from '../app.constants';
-import { MarkerManager } from '@agm/core';
-import { Subject } from "rxjs";
-
 @Component({
   selector: 'app-gmaps',
   templateUrl: './gmaps.component.html',
   styleUrls: ['./gmaps.component.css']
 })
 export class GmapsComponent {
- 
-@Input() resetFormSubject: Subject<boolean> = new Subject<boolean>();
  public message:any;
  public id:any;
  public categ:any;
@@ -29,23 +24,19 @@ map: Map;
   
 
   ngOnInit(){
-    this.resetFormSubject.subscribe(response => {
-      if(response){
-        this.getmapsdata();
-      // Or do whatever operations you need.
-    }
-   });
  this.initializeMapOptions();
  this.getmapsdata();
     }
-    
+
     getmapsdata(): void {
-      debugger;
+
+      
+    
     this.message=this.pservice.readMessage();
       console.log("hey im here!!!!!!!!!!!!!!!!!!!");
       console.log(this.message);
      for(let details of this.message){
-     this.id=details.CLIENT_ID;
+     this.id=details.client_id;
      }
      console.log(this.id);
      var ToDate=localStorage.getItem('ToDate');
@@ -121,34 +112,25 @@ map: Map;
           })
       ],
     };
-  
   }
 
   private addSampleMarker(lat,lon,cat,amt,place,color) {
-    var marker = new Marker([lat, lon])
+    const marker = new Marker([lat, lon])
     .setIcon(
       icon({
         iconSize: [25, 41],
         iconAnchor: [13, 41],
         iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-'+color+'.png'
-        //iconUrl: 'my-icon.png',
-        //className: 'blink'
       }));
-      
-  //L.DomUtil.addClass(marker._icon, "blink");
   marker.addTo(this.map);
   this.map.getZoom();
-  
+
   marker.bindPopup("<b>Category:</b> "+cat+"<br><b>Amount spent:</b> "+amt+"<br><b>Place:</b> "+place+"<b>",{closeButton: false, offset: L.point(0, -20)});
    marker.on('mouseover', function (e) {
           this.openPopup();
       });
-      
       marker.on('mouseout', function (e) {
           this.closePopup();
       });
 }
-
-
- 
 }

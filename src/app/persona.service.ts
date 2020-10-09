@@ -16,6 +16,8 @@ const baseUrl4 = 'http://localhost:3000/api/dcp/loc1';
 const baseUrl5 = 'http://localhost:3000/api/dcp/top5';
 const baseUrl6 = 'http://localhost:3000/api/dcp/getmapdetails';
 const baseUrl7 = 'http://localhost:3000/api/dcp/map';
+const baseUrl10 = 'http://localhost:3000/api/dcp/child';
+
 const baseUrl8 = 'http://localhost:3000/api/dcp/top5date';
 const baseUrl9 = 'http://localhost:3000/api/dcp/ids1';
 
@@ -25,6 +27,8 @@ const baseUrl9 = 'http://localhost:3000/api/dcp/ids1';
 export class PersonaService {
 public message :any[] = [];
 public message1 :any[] = [];
+public top5data :any[] = [];
+public top5data1 :any[] = [];
 
 constructor(private http: HttpClient) { }
 
@@ -62,13 +66,24 @@ getcid1(): Observable<any> {
  public setMessage(message):void {
      localStorage.setItem('this.message', JSON.stringify(message));
    }
+    public setMessage1(top5):void {
+     localStorage.setItem('this.top5data', JSON.stringify(top5));
+   }
    public readMessage():any {
    var retrievedObject =localStorage.getItem('this.message');
    this.message1=JSON.parse(retrievedObject);
        return this.message1;
    }
 
-   categorytop5(id,FromDate,ToDate): Observable<any> {
+   public readMessage1():any {
+   var retrievedObject =localStorage.getItem('this.top5data');
+   this.top5data1=JSON.parse(retrievedObject);
+       return this.top5data1;
+   }
+
+
+     categorytop5(id,FromDate,ToDate): Observable<any> {
+   
       return this.http.get(`${baseUrl5}/${id}/${FromDate}/${ToDate}`). pipe(
              map((data: ResultModel[]) => {
                return data;
@@ -79,6 +94,15 @@ getcid1(): Observable<any> {
     }
        mapplot(id,FromDate,ToDate): Observable<any> {
         return this.http.get(`${baseUrl7}/${id}/${FromDate}/${ToDate}`). pipe(
+               map((data: ResultModel[]) => {
+                 return data;
+               }), catchError( error => {
+                 return throwError( 'Something went wrong!' );
+               })
+            )
+      }
+      childnodes(id,FromDate,ToDate): Observable<any> {
+        return this.http.get(`${baseUrl10}/${id}/${FromDate}/${ToDate}`). pipe(
                map((data: ResultModel[]) => {
                  return data;
                }), catchError( error => {

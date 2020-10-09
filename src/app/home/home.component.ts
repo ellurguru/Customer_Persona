@@ -46,13 +46,12 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void 
   {
-    var d = new Date();
+ var d = new Date();
     var year = d.getFullYear();
-    var month = d.getMonth();
+    var month = d.getMonth()+1;
     var day = d.getDate();
     localStorage.setItem("ToDate", year + "-" + month + "-" + day);
     localStorage.setItem("FromDate", year-20 + "-" + month + "-" + day);
-
 this.subs.add(this.pservice.getcid1().subscribe((data) => {
       this.dataArray=data;
       console.log(this.dataArray);
@@ -119,6 +118,8 @@ private _filter5(value: any): any[] {
     const filterValue = value.toLowerCase();
     console.log("this.dataArray");
     console.log(this.dataArray);
+    console.log("jhytgrfedws");
+     console.log(this.dataArray.filter(option => option.client_id));
     return this.dataArray.filter(option => option.client_id.toLowerCase().includes(filterValue));
   }
 

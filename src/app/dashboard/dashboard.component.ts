@@ -1,10 +1,9 @@
-import { Component, OnInit,Input,ViewChild } from '@angular/core';
-import { ActivatedRoute,NavigationEnd,Router } from '@angular/router';
+import { Component, OnInit} from '@angular/core';
+import { ActivatedRoute,Router } from '@angular/router';
 import { PersonaService } from '../persona.service';
 import {Demographics} from "./../demo";
 import { ResultModel } from './../result-model';
-import {FormControl,FormGroup,FormBuilder} from '@angular/forms';
-import { Subject } from "rxjs";
+import {FormControl} from '@angular/forms';
 import * as Highcharts from 'highcharts';
 import more from 'highcharts/highcharts-more';
 more(Highcharts);
@@ -23,6 +22,7 @@ import {DEFAULT_LATITUDE, DEFAULT_LONGITUDE} from '../app.constants';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+
 private map;
 private mapOptions;
 mySubscription: any;
@@ -36,7 +36,7 @@ ToDate = new FormControl(new Date(localStorage.getItem('ToDate')));
 FromDate = new FormControl(new Date(localStorage.getItem('FromDate')));
 
   ngOnInit() {
-
+    localStorage.removeItem("category");
       this.mess=this.pservice.readMessage();
       console.log("hey im here!!");
       console.log(this.mess);  
@@ -45,31 +45,26 @@ FromDate = new FormControl(new Date(localStorage.getItem('FromDate')));
      }
      this.initializeMapOptions();
      this.getmapsdata();
-
+   
      const self = this;
       this.chartCallback = chart => {
         self.chart = chart;
+        debugger
         this.onInitChart();
       };  
   }
   onSubmit() {
       localStorage.setItem("ToDate", this.ToDate.value.getFullYear() + "-" + this.ToDate.value.getMonth() + "-" + this.ToDate.value.getDate());
       localStorage.setItem("FromDate", this.FromDate.value.getFullYear() + "-" + this.FromDate.value.getMonth() + "-" + this.FromDate.value.getDate());
-      //window.location.reload();
-      this.onMapReady(this.map);
+      localStorage.removeItem("category");
       this.onInitChart();
-      this.initializeMapOptions();
       this.getmapsdata();
   }
 
  // <------------------------- Network chart----------------------------------->
 
- public message:any;
- //public id:any;
- public name:any;
-
-
-  // public CategoryModel: ResultModel[];
+    public message:any;
+    public name:any;
     title = "Categories";
     chart;
     updateFromInput = false;
@@ -78,25 +73,27 @@ FromDate = new FormControl(new Date(localStorage.getItem('FromDate')));
     chartCallback;
     chartOptions = {
       chart: {
-        type: "networkgraph",
-      },
+        type: "networkgraph"
+        
+       },
       title: {
         text: ""
       },
       
       plotOptions: {
         networkgraph: {
-          keys: ["from", "to"],
-          layoutAlgorithm: {
-            enableSimulation: true,
+     
+      keys: ['from', 'to'],
+      layoutAlgorithm: {
+        enableSimulation: true,
+      },
 
-          },
-        }
+    }
       },
       series: [],
       tooltip:{}
     };
-
+  Name;
    onInitChart() {
 //Using Map
 const colormap1 : Record<string, string> = {
@@ -106,40 +103,54 @@ const colormap1 : Record<string, string> = {
   "top4": "orange",
   "top5": "grey",
   "default": "blue"};
-var Name;
+
    this.message=this.pservice.readMessage();
      for(let details of this.message){
      this.id=details.CLIENT_ID;
      this.name=details.FIRST;
-     Name=details.FIRST;
+     this.Name=details.FIRST;
      }
 
 var ToDate=localStorage.getItem('ToDate');
 var FromDate=localStorage.getItem('FromDate');
 var cat;
-
+var cat1;
   this.pservice.categorytop5(this.id,FromDate,ToDate).subscribe(
     response => {
-    
-        this.CategoryModel = response;
-        cat=response;
-        const self = this,    
-        chart = this.chart;
-        var i=1;
-
-        chart.showLoading();
+    this.CategoryModel = response;
+    cat=response;
+    this.pservice.childnodes(this.id,FromDate,ToDate).subscribe(
+    response => {
+    cat1=response;
+    console.log(cat1);
+    const self = this,    
+    chart = this.chart;
+    var i=1;
+    var count=1;
+        //chart.showLoading();
         var dataarray=new Array();
         var nodesarray=new Array();
         var images='url(assets/images/person.jpg)'
-        setTimeout(() => {
-          chart.hideLoading();
+        //setTimeout(() => {
+         // chart.hideLoading();
           cat.forEach(element => {
-            dataarray.push({from:Name, to:element.CATEGORY});
-            dataarray.push({from:element.CATEGORY,to:element.BILLING_PLACE});
+            dataarray.push({from:this.Name, to:element.CATEGORY});
+             if(count<=15){
+              cat1.forEach(element1 =>{
+            
+            if(element.CATEGORY==element1.CATEGORY){
+              debugger
+            if(localStorage.getItem("category")==element.CATEGORY)
+            {
+              dataarray.push({from:element.CATEGORY,to:element1.BILLING_PLACE});
+            }
+          }});}count++;
           });
+          
           cat.forEach(element => {
-            debugger
-            nodesarray.push({id:Name,name:' ', marker:{symbol:images,height:100,width:100,shape:L.Circle}
+            
+            nodesarray.push({id:this.Name, marker:{symbol:images,height:100,width:100,shape:L.Circle},dataLabels: {
+                  enabled: false}
           })
             nodesarray.push({id:element.CATEGORY,
               events:{
@@ -148,22 +159,41 @@ var cat;
                 localStorage.setItem('category',element.CATEGORY); 
                 var color=colormap1['top'+i];
                 localStorage.setItem('color',color);
-              }},
+                const self = this;
+                this.chartCallback = chart => {
+                  self.chart = chart;
+                  debugger
+                  this.onInitChart();
+                };  
+              },
+            },
                 name:element.CATEGORY+'<br/> Amount : '+element.AMOUNT,color:colormap1['top'+i]});
-               
-              nodesarray.push({id:element.BILLING_PLACE,
-                name:'Place : '+element.BILLING_PLACE+'<br/> Max_amount : '+element.MAX_AMOUNT,color:colormap1['top'+i],
-                marker: {
-                  radius: 20,
-                 }});
-                 i++;
-          });
+               if(count<=15){
+              cat1.forEach(element1 => {
+
+ if(element.CATEGORY==element1.CATEGORY){
+  if(localStorage.getItem("category")==element.CATEGORY)
+  {
+    nodesarray.push({id:element1.BILLING_PLACE,name:element1.BILLING_PLACE+'<br/>'+element1.AMOUNT,color:colormap1['top'+i], marker: {
+                  radius: 20
+                 }
+
+                 });
+                 }
+                 }
+                 
+          });i++;}count++;}
           
+          );
+
           self.chartOptions.series = [
             {
-                dataLabels: {
+             marker: {
+                    radius: 30,
+                   
+                  },
+                 dataLabels: {
                   enabled: true,
-
                   linkFormat: '',
                   allowOverlap: true,
                   showInLegend: true,
@@ -172,19 +202,36 @@ var cat;
                     textOutline: false 
                 }
                 },
-                marker: {
-                    radius: 55,
-                    symbol:'squre'
-                  },
                   nodes:nodesarray,
                   data: dataarray
-                 
               }
           ];
           self.updateFromInput = true;
-        }, 2000);
+          localStorage.removeItem("category");
+          //  if(this.series.length>0)
+          //  {
+          //   debugger
+          //   this.series[0].points.forEach(p => {
+          //     p.graphic.hide();
+          //     p.toNode.graphic.css({
+          //       fillOpacity: 0
+          //     });
+          //     p.toNode.isHidden = true;
+          //     p.toNode.dataLabel.css({
+          //       fillOpacity: 0
+          //     })
+          //   })
+          //   self.updateFromInput = true;
+          //  }
+        //}, 2000);
       });
+    });
       
+  }
+
+  public bindChildNodes()
+  {
+console.log("clicked")
   }
   
 //--------------------------------------leaflet map ------------------------------------------>
@@ -192,14 +239,14 @@ var cat;
 
 toggleDisplayDivIf()
 {
-  debugger;
+  
   console.log(localStorage.getItem("category"))
   if(localStorage.getItem("category")!='undefined' && localStorage.getItem("category")!=null)
   {
     //this.onMapReady(this.map);
     this.initializeMapOptions();
     this.getmapsdata();
-    
+    this.onInitChart();
   }
   
   console.log(localStorage.getItem("category"))
@@ -243,7 +290,7 @@ toggleDisplayDivIf()
         "default": "blue"};
 
         for (var j in this.map._layers) {
-          debugger
+          
               try {
                   this.map.removeLayer(this.map._layers[j]);
               } catch (e) {
@@ -315,20 +362,20 @@ toggleDisplayDivIf()
         }
 
      }
-    localStorage.removeItem('category');
+    
    }); 
    });
   }
      
   onMapReady(map: Map) {
-    debugger
+    
     this.map=null;
     this.map = map;
     //this.addSampleMarker();
   }
 
   private initializeMapOptions() {
-    debugger
+    
     this.mapOptions=null;
     this.mapOptions = {
       center: [DEFAULT_LATITUDE, DEFAULT_LONGITUDE],
@@ -363,7 +410,7 @@ toggleDisplayDivIf()
   }
 
   private addSampleMarker(lat,lon,cat,amt,place,color) {
-    debugger
+    
     var marker = new Marker([lat, lon])
     .setIcon(
       icon({
@@ -411,20 +458,3 @@ ngOnDestroy() {
 }
  
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

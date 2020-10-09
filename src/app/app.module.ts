@@ -23,16 +23,14 @@ import {MatNativeDateModule} from '@angular/material/core';
 import { AgmCoreModule } from '@agm/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { GmapsComponent } from './gmaps/gmaps.component';
-//import { MapsModule, MarkerService, LegendService, MapsTooltipService } from '@syncfusion/ej2-angular-maps';
+
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 import {MatButtonModule} from '@angular/material/button';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import { DynamicChartComponent } from './dynamic-chart/dynamic-chart.component';
 import { PersonaService } from './persona.service';
-import { MY_DATE_FORMATS } from './my-date-formats';
 import { NetworkOnDateComponent } from './network-on-date/network-on-date.component';
-import {MatSelectModule} from '@angular/material/select';
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,14 +61,15 @@ import {MatSelectModule} from '@angular/material/select';
     MatAutocompleteModule,
     MatFormFieldModule,
     MatInputModule,
-    //MapsModule,
+    
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonModule,
-    LeafletModule,
-    MatSelectModule
+    LeafletModule
+   
+    
   ],
-  providers: [PersonaService,{ provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS }],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
