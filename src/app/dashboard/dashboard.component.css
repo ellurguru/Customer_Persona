@@ -325,7 +325,8 @@ h6,
 .display-2 {
   font-size: 2.75rem;
   font-weight: 600;
-  line-height: 1.5;
+  line-height: 0;
+  padding-left: 500px;
 }
 
 hr {
@@ -2038,5 +2039,4 @@ p {
 #navbar .navbar {
   margin-bottom: 20px;
 }
-
 

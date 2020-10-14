@@ -49,7 +49,7 @@ FromDate = new FormControl(new Date(localStorage.getItem('FromDate')));
      const self = this;
       this.chartCallback = chart => {
         self.chart = chart;
-        debugger
+        
         this.onInitChart();
       };  
   }
@@ -85,7 +85,7 @@ FromDate = new FormControl(new Date(localStorage.getItem('FromDate')));
      
       keys: ['from', 'to'],
       layoutAlgorithm: {
-        enableSimulation: true,
+        enableSimulation: false,
       },
 
     }
@@ -103,6 +103,7 @@ const colormap1 : Record<string, string> = {
   "top4": "orange",
   "top5": "grey",
   "default": "blue"};
+ var icons=["Credit card","supermarkets","Auto Insurance","Gasoline","Medical Services","Technology","Entertainment","Merchandise","Travel","Auto Loan","Mortgage","Department Stores","Rent","atm","Restaurants","Health Insurance","Services","Balance Transfers","Automotive","Home Improvement"];
 
    this.message=this.pservice.readMessage();
      for(let details of this.message){
@@ -125,21 +126,21 @@ var cat1;
     console.log(cat1);
     const self = this,    
     chart = this.chart;
-    var i=1;
+    var i=1;var j=1;
     var count=1;
-        //chart.showLoading();
+        chart.showLoading();
         var dataarray=new Array();
         var nodesarray=new Array();
         var images='url(assets/images/person.jpg)'
-        //setTimeout(() => {
-         // chart.hideLoading();
+        setTimeout(() => {
+          chart.hideLoading();
           cat.forEach(element => {
             dataarray.push({from:this.Name, to:element.CATEGORY});
              if(count<=15){
               cat1.forEach(element1 =>{
             
             if(element.CATEGORY==element1.CATEGORY){
-              debugger
+              
             if(localStorage.getItem("category")==element.CATEGORY)
             {
               dataarray.push({from:element.CATEGORY,to:element1.BILLING_PLACE});
@@ -149,9 +150,11 @@ var cat1;
           
           cat.forEach(element => {
             
-            nodesarray.push({id:this.Name, marker:{symbol:images,height:100,width:100,shape:L.Circle},dataLabels: {
+            nodesarray.push({id:this.Name, marker:{symbol:images,height:50,width:50},dataLabels: {
                   enabled: false}
           })
+          for(j=0;j<icons.length;j++){
+          if(element.CATEGORY==icons[j]){
             nodesarray.push({id:element.CATEGORY,
               events:{
                 click:function(){
@@ -162,22 +165,25 @@ var cat1;
                 const self = this;
                 this.chartCallback = chart => {
                   self.chart = chart;
-                  debugger
+                  
                   this.onInitChart();
                 };  
               },
             },
-                name:element.CATEGORY+'<br/> Amount : '+element.AMOUNT,color:colormap1['top'+i]});
+               name:element.CATEGORY+'<br/> Amount : $'+element.AMOUNT,marker:{symbol:'url(assets/images/'+icons[j]+'.png)',height:50,width:50,shape:L.Circle},dataLabels: {
+                  enabled: false}});
+                }
+                }
                if(count<=15){
               cat1.forEach(element1 => {
 
  if(element.CATEGORY==element1.CATEGORY){
   if(localStorage.getItem("category")==element.CATEGORY)
   {
-    nodesarray.push({id:element1.BILLING_PLACE,name:element1.BILLING_PLACE+'<br/>'+element1.AMOUNT,color:colormap1['top'+i], marker: {
+    nodesarray.push({id:element1.BILLING_PLACE,name:element1.BILLING_PLACE+', $'+element1.AMOUNT,color:colormap1['top'+i], marker: {
                   radius: 20
-                 }
-
+                  
+                 },
                  });
                  }
                  }
@@ -189,15 +195,16 @@ var cat1;
           self.chartOptions.series = [
             {
              marker: {
-                    radius: 30,
-                   
+                    radius: 15
                   },
                  dataLabels: {
                   enabled: true,
                   linkFormat: '',
                   allowOverlap: true,
-                  showInLegend: true,
+                  showInLegend: false,
                   align:'center',
+                  
+                  
                    style: {
                     textOutline: false 
                 }
@@ -208,31 +215,13 @@ var cat1;
           ];
           self.updateFromInput = true;
           localStorage.removeItem("category");
-          //  if(this.series.length>0)
-          //  {
-          //   debugger
-          //   this.series[0].points.forEach(p => {
-          //     p.graphic.hide();
-          //     p.toNode.graphic.css({
-          //       fillOpacity: 0
-          //     });
-          //     p.toNode.isHidden = true;
-          //     p.toNode.dataLabel.css({
-          //       fillOpacity: 0
-          //     })
-          //   })
-          //   self.updateFromInput = true;
-          //  }
-        //}, 2000);
+        }, 2000);
       });
     });
       
   }
 
-  public bindChildNodes()
-  {
-console.log("clicked")
-  }
+ 
   
 //--------------------------------------leaflet map ------------------------------------------>
 
@@ -423,7 +412,7 @@ toggleDisplayDivIf()
       
   //L.DomUtil.addClass(marker._icon, "blink");
   marker.addTo(this.map);
-  marker.bindPopup("<b>Category:</b> "+cat+"<br><b>Amount spent:</b> "+amt+"<br><b>Place:</b> "+place+"<b>",{closeButton: false, offset: L.point(0, -20)});
+  marker.bindPopup("<b>Category:</b> "+cat+"<br><b>Amount spent:</b> "+"$"+amt+"<br><b>Place:</b> "+place+"<b>",{closeButton: false, offset: L.point(0, -20)});
   marker.on('mouseover', function (e) {
          this.openPopup();
      });

@@ -30,13 +30,18 @@
 <em><b> {{details.FIRST}} {{details.LAST}}</b></em>
 </pre>
 </div>
+
+
  <div class="row">
+
  <div class="col-xl-8">
+    
+
      <div class="table-responsive">
      <table>
         <tr>
           <td style="height:50px;vertical-align: middle;">
-        <img class="img1" src="assets\images\person.jpg" class="rounded-circle" width="190" height="190">
+        <img class="img1" src="assets\images\person.jpg" class="rounded-circle" width="170" height="180">
           </td>
     <td style="vertical-align: top;">
     <table style="table-layout: auto;text-indent:15px; border-spacing:0px;padding: 1px;">
@@ -62,7 +67,9 @@
 <div style="text-align:center;">
   <div class="card-body pt-0 pt-md-4">
   <div class="card card-profile shadow" style="height:800px;padding-top: 30px;">  
-<form>
+ <div class="column">
+  <form>
+  <div class="container">
   <mat-form-field appearance="fill">
     <mat-label>Select from date</mat-label>
     <input matInput [matDatepicker]="fromdate" [formControl]="FromDate">
@@ -79,11 +86,13 @@
    &nbsp;&nbsp;
 
   <button mat-raised-button class="button" style="height: 2.5em;" type="button" (click)="onSubmit()" >Submit</button>
+  </div>
 </form> 
+ </div>
 <div class="row justify-content-md-center">
   <table>
    <tr><td>
-    <mat-card style="width:650px; height: 600px;border: 1px solid black;">
+    <mat-card style="width:700px; height: 600px;border: 1px solid black;">
         <!-- <app-dynamic-chart [CategoryValue]=ClickCounter (CategoryClicked)="resetChildForm($event)"></app-dynamic-chart> -->
         <div class="boxChart__container">
           <div class="abc" style="background-color: #D8BFD8">
@@ -100,6 +109,7 @@
               [callbackFunction]="chartCallback"
               [(update)]="updateFromInput"
               [oneToOne]="true"
+              [click]= TriggerMap
               style="width:560px; height: 500px;display: block;">
             </highcharts-chart>
             
@@ -109,7 +119,7 @@
    </td>
    &nbsp;
   <td>
-    <mat-card style="width:650px; height: 600px;border: 1px solid black;">
+    <mat-card style="width:700px; height: 600px;border: 1px solid black;">
        <div class="boxChart__container">
       <div class="abc" style="background-color: #D8BFD8">
         <pre style="text-align:left;font-size:20px;font-family:Book Antiqua;letter-spacing: 2px;">

@@ -1,12 +1,22 @@
- <div class="jumbotron jumbotron-fluid bg-warning text-black text-center">
-      <div class="containerr">
-        <h1 class="display-2">The Persona Tracker</h1>
-      </div>
+<div class="main-content" style="background-color: #E6E6FA"> 
+    <div class="header pb-8 pt-5 pt-lg-8 d-flex" style="height: 100px; background-image: url(assets/images/logo.png); background-size: cover; background-position: center top;">
+      <!-- Mask -->
+      <span class="mask bg-gradient-default opacity-8"></span>
+ 
+   
+    <div class="container-fluid">
+      <div class="row ">
+       <div class="col">
+         <h1 class="display-2 text-white">The Persona Tracker</h1>
+       </div>
     </div>
-
+  </div></div>
+  <div style="text-align:center;">
+    <div class="card-body pt-0 pt-md-4">
+    <div class="card card-profile shadow" style="height:600px;padding-top: 30px;">  
 <div class="row">
   <div class="column">
-    <img src="assets/images/persona.jpg" alt="Snow" style="width:100%;height:90%">
+    <img src="assets/images/persona.jpg" alt="Snow" style="width:90%;height:90%">
   </div>
   <div class="column">
     <form>
@@ -24,11 +34,7 @@
       <mat-option *ngFor="let option of filteredOptions5 | async" [value]="option.client_id">
       {{option.client_id}} | {{option.first}} 
     </mat-option>
-     <!--  <mat-option *ngFor="let option1 of filteredOptions1 | async" [value]="option1">
-      
-        {{option1}}
-   
-      </mat-option> -->
+     
       <mat-option *ngFor="let option2 of filteredOptions6 | async" [value]="option2.first">
         {{option2.first}} | {{option2.client_id}} 
       </mat-option> 
@@ -42,29 +48,15 @@
   </mat-form-field>
 
         <br><br>
-
-        <!-- <mat-form-field color="primary" appearance="fill">
-  <mat-label>Select from date</mat-label>
-  <input matInput [matDatepicker]="picker1"  [formControl]="fromdate">
-  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-  <mat-datepicker #picker1></mat-datepicker>
-</mat-form-field>
-
-      &nbsp;
-      <mat-form-field color="primary" appearance="fill">
-        <mat-label>Select to date</mat-label>
-        <input matInput [matDatepicker]="picker2">
-        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-        <mat-datepicker #picker2></mat-datepicker>
-      </mat-form-field>
-
-        <br><br>
- -->         <button mat-raised-button class="button" type="button" (click)="onSubmit()">Submit</button>
+       <button mat-raised-button class="button" type="button" (click)="onSubmit()">Submit</button>
         
       </div>   
     </form>
 </div>
-
-
+</div>
+</div>
+</div>
+</div>
+</div>
 
 
