@@ -12,14 +12,14 @@ export class PieLiaComponent implements OnInit {
 
   ngOnInit(): void {
   }
-highchartss = Highcharts;
-   chartOptionss = {   
+highcharts = Highcharts;
+   chartOptions = {   
       chart : {
          plotBorderWidth: null,
          plotShadow: false
       },
       title : {
-         text: 'Liabilities'   
+         text: 'Liabilities Information'   
       },
       credits: {
          enabled: false
@@ -43,16 +43,17 @@ highchartss = Highcharts;
          type: 'pie',
          name: 'Assets',
          data: [
-            ['Credit Card',   50200],
-            ['House Loan',       62000],
+            ['Savings Account',   50000],
+            ['SB Account',       40000],
             {
-               name: 'Auto Loan',
-               y: 40000,
+               name: 'Current Account',
+               y: 60000,
                sliced: true,
                selected: true
             },
-
+            ['Joint Account',   10000],
          ]
       }]
    };
 }
+
