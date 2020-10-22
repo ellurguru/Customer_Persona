@@ -42,8 +42,7 @@ highcharts = Highcharts;
       },
       series : [{
          type: 'pie',
-         innerSize: '50%',
-         name: 'Liabilities',
+         name: 'Assets',
          data: [
             ['Savings Account',   50000],
             ['SB Account',       40000],
@@ -56,6 +55,4 @@ highcharts = Highcharts;
             ['Joint Account',   10000],
          ]
       }]
-   };
-}
-
+   };}
