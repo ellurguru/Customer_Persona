@@ -325,8 +325,7 @@ h6,
 .display-2 {
   font-size: 2.75rem;
   font-weight: 600;
-  line-height: 0;
-  padding-left: 500px;
+  line-height: 1.5;
 }
 
 hr {
@@ -944,24 +943,24 @@ textarea.form-control {
   text-decoration: none;
 }
 
-.navbar {
+/*.navbar {
   position: relative;
   display: flex;
   padding: 1rem 1rem;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-}
+}*/
 
-.navbar>.container,
+/*.navbar>.container,
 .navbar>.container-fluid {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-}
+}*/
 
-.navbar-nav {
+/*.navbar-nav {
   display: flex;
   flex-direction: column;
   margin-bottom: 0;
@@ -977,18 +976,18 @@ textarea.form-control {
 .navbar-nav .dropdown-menu {
   position: static;
   float: none;
-}
+}*/
 
-@media (max-width: 767.98px) {
+/*@media (max-width: 767.98px) {
 
   .navbar-expand-md>.container,
   .navbar-expand-md>.container-fluid {
     padding-right: 0;
     padding-left: 0;
   }
-}
+}*/
 
-@media (min-width: 768px) {
+/*@media (min-width: 768px) {
   .navbar-expand-md {
     flex-flow: row nowrap;
     justify-content: flex-start;
@@ -1011,7 +1010,7 @@ textarea.form-control {
   .navbar-expand-md>.container-fluid {
     flex-wrap: nowrap;
   }
-}
+}*/
 
 .navbar-dark .navbar-nav .nav-link {
   color: rgba(255, 255, 255, .95);
@@ -1583,6 +1582,7 @@ a.text-white:focus {
 
 .main-content {
   position: relative;
+  overflow: hidden;
 }
 
 .main-content .navbar-top {
@@ -1597,7 +1597,7 @@ a.text-white:focus {
 }
 
 @media (min-width: 768px) {
-  .main-content .container-fluid {
+  .main-content .container-fluid .navbar-top{
     padding-right: 24px !important;
     padding-left: 24px !important;
   }
@@ -2039,4 +2039,46 @@ p {
 #navbar .navbar {
   margin-bottom: 20px;
 }
+#prod_card{
+    border-radius: 4px;
+    box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+      transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+  cursor: pointer;
+}
+#prod_card:hover{
+     transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+}
+#myButton1{
+    border-radius: 4px;
+    box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+      transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+  cursor: pointer;
+}
+#myButton1:hover{
+     transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+}
+#myButton2{
+    border-radius: 4px;
+    box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+      transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+  cursor: pointer;
+}
+#myButton2:hover{
+     transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+}
+#myButton3{
+    border-radius: 4px;
+    box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+      transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+  cursor: pointer;
+}
+#myButton3:hover{
+     transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+}
+
+
 
