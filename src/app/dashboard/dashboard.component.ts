@@ -14,7 +14,8 @@ import { HttpClient} from '@angular/common/http';
 import * as L from 'leaflet';
 import {tileLayer, Map, Marker, icon} from 'leaflet';
 import {DEFAULT_LATITUDE, DEFAULT_LONGITUDE} from '../app.constants';
-
+import {credit,credit_info,loan,loan_info,saving,saving_info,current,current_info} from "./../prod_names";
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,7 +23,7 @@ import {DEFAULT_LATITUDE, DEFAULT_LONGITUDE} from '../app.constants';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-
+  closeResult: string;
 private map;
 private mapOptions;
 mySubscription: any;
@@ -34,14 +35,30 @@ public tod:any;
 public from_date:any;
 ToDate = new FormControl(new Date(localStorage.getItem('ToDate')));
 FromDate = new FormControl(new Date(localStorage.getItem('FromDate')));
-
+open(content) {
+    this.modalService.open(content,  {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+  
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
+  }
   ngOnInit() {
     localStorage.removeItem("category");
       this.mess=this.pservice.readMessage();
       console.log("hey im here!!");
       console.log(this.mess);  
       for(let details of this.mess){
-     this.id=details.client_id;
+     this.id=details.CLIENT_ID;
      }
      this.initializeMapOptions();
      this.getmapsdata();
@@ -52,6 +69,13 @@ FromDate = new FormControl(new Date(localStorage.getItem('FromDate')));
         
         this.onInitChart();
       };  
+
+
+
+
+
+
+
   }
   onSubmit() {
       localStorage.setItem("ToDate", this.ToDate.value.getFullYear() + "-" + this.ToDate.value.getMonth() + "-" + this.ToDate.value.getDate());
@@ -73,7 +97,8 @@ FromDate = new FormControl(new Date(localStorage.getItem('FromDate')));
     chartCallback;
     chartOptions = {
       chart: {
-        type: "networkgraph"
+        type: "networkgraph",
+        
         
        },
       title: {
@@ -82,7 +107,7 @@ FromDate = new FormControl(new Date(localStorage.getItem('FromDate')));
       
       plotOptions: {
         networkgraph: {
-     
+    
       keys: ['from', 'to'],
       layoutAlgorithm: {
         enableSimulation: false,
@@ -101,8 +126,8 @@ const colormap1 : Record<string, string> = {
   "top2": "red", 
   "top3": "yellow",
   "top4": "orange",
-  "top5": "grey",
-  "default": "blue"};
+  "top5": "",
+  "default": "grey"};
  var icons=["Credit card","supermarkets","Auto Insurance","Gasoline","Medical Services","Technology","Entertainment","Merchandise","Travel","Auto Loan","Mortgage","Department Stores","Rent","atm","Restaurants","Health Insurance","Services","Balance Transfers","Automotive","Home Improvement"];
 
    this.message=this.pservice.readMessage();
@@ -128,12 +153,12 @@ var cat1;
     chart = this.chart;
     var i=1;var j=1;
     var count=1;
-        chart.showLoading();
+        //chart.showLoading();
         var dataarray=new Array();
         var nodesarray=new Array();
         var images='url(assets/images/person.jpg)'
-        setTimeout(() => {
-          chart.hideLoading();
+        //setTimeout(() => {
+         // chart.hideLoading();
           cat.forEach(element => {
             dataarray.push({from:this.Name, to:element.CATEGORY});
              if(count<=15){
@@ -150,7 +175,7 @@ var cat1;
           
           cat.forEach(element => {
             
-            nodesarray.push({id:this.Name, marker:{symbol:images,height:50,width:50},dataLabels: {
+            nodesarray.push({id:this.Name, marker:{symbol:images,height:100,width:100,shape:L.Circle},dataLabels: {
                   enabled: false}
           })
           for(j=0;j<icons.length;j++){
@@ -163,14 +188,17 @@ var cat1;
                 var color=colormap1['top'+i];
                 localStorage.setItem('color',color);
                 const self = this;
+
                 this.chartCallback = chart => {
                   self.chart = chart;
                   
                   this.onInitChart();
+                 
                 };  
+
               },
             },
-               name:element.CATEGORY+'<br/> Amount : $'+element.AMOUNT,marker:{symbol:'url(assets/images/'+icons[j]+'.png)',height:50,width:50,shape:L.Circle},dataLabels: {
+               name:element.CATEGORY+'<br/> Amount : $'+element.AMOUNT,marker:{symbol:'url(assets/images/'+icons[j]+'.png)',height:90,width:90,shape:L.Circle},dataLabels: {
                   enabled: false}});
                 }
                 }
@@ -181,8 +209,7 @@ var cat1;
   if(localStorage.getItem("category")==element.CATEGORY)
   {
     nodesarray.push({id:element1.BILLING_PLACE,name:element1.BILLING_PLACE+', $'+element1.AMOUNT,color:colormap1['top'+i], marker: {
-                  radius: 20
-                  
+                  radius: 35
                  },
                  });
                  }
@@ -195,16 +222,15 @@ var cat1;
           self.chartOptions.series = [
             {
              marker: {
-                    radius: 15
+                    radius: 30,
+                   
                   },
                  dataLabels: {
                   enabled: true,
                   linkFormat: '',
                   allowOverlap: true,
-                  showInLegend: false,
+                  showInLegend: true,
                   align:'center',
-                  
-                  
                    style: {
                     textOutline: false 
                 }
@@ -215,13 +241,31 @@ var cat1;
           ];
           self.updateFromInput = true;
           localStorage.removeItem("category");
-        }, 2000);
+          //  if(this.series.length>0)
+          //  {
+          //   
+          //   this.series[0].points.forEach(p => {
+          //     p.graphic.hide();
+          //     p.toNode.graphic.css({
+          //       fillOpacity: 0
+          //     });
+          //     p.toNode.isHidden = true;
+          //     p.toNode.dataLabel.css({
+          //       fillOpacity: 0
+          //     })
+          //   })
+          //   self.updateFromInput = true;
+          //  }
+        //}, 2000);
       });
     });
       
   }
 
- 
+  public bindChildNodes()
+  {
+console.log("clicked")
+  }
   
 //--------------------------------------leaflet map ------------------------------------------>
 
@@ -245,7 +289,7 @@ toggleDisplayDivIf()
  public maparray:any;
   
   lastLayer: any;
-  constructor(private router: Router, private route: ActivatedRoute,private http: HttpClient, private pservice:PersonaService,) {}
+  constructor(private router: Router, private route: ActivatedRoute,private http: HttpClient, private pservice:PersonaService,private modalService: NgbModal) {}
 
   
     getmapsdata(): void {
@@ -275,8 +319,8 @@ toggleDisplayDivIf()
         "top2": "red", 
         "top3": "yellow",
         "top4": "orange",
-        "top5": "grey",
-        "default": "blue"};
+        "top5": "blue",
+        "default": "grey"};
 
         for (var j in this.map._layers) {
           
@@ -412,7 +456,7 @@ toggleDisplayDivIf()
       
   //L.DomUtil.addClass(marker._icon, "blink");
   marker.addTo(this.map);
-  marker.bindPopup("<b>Category:</b> "+cat+"<br><b>Amount spent:</b> "+"$"+amt+"<br><b>Place:</b> "+place+"<b>",{closeButton: false, offset: L.point(0, -20)});
+  marker.bindPopup("<b>Category:</b> "+cat+"<br><b>Amount spent:</b> "+amt+"<br><b>Place:</b> "+place+"<b>",{closeButton: false, offset: L.point(0, -20)});
   marker.on('mouseover', function (e) {
          this.openPopup();
      });
@@ -445,5 +489,289 @@ ngOnDestroy() {
   //   this.mySubscription.unsubscribe();
   // }
 }
+
+click1(){
+var x = document.getElementById("myBtn").textContent;
+console.log(x);
+var y = document.getElementById("myButton1").textContent;
+
+if(x=="Credit Card" && y=="Loan"){
+document.getElementById("myButton1").innerHTML=credit;
+document.getElementById("myBtn").innerHTML =loan;
+document.getElementById("info").innerHTML = loan_info;
+}
+else if(x=="Loan" && y=="Credit Card")
+{
+document.getElementById("myButton1").innerHTML=loan;
+document.getElementById("myBtn").innerHTML =credit;
+document.getElementById("info").innerHTML = credit_info;
+}
+else if(x=="Savings Account" && y=="Loan"){
+document.getElementById("myButton1").innerHTML=saving;
+document.getElementById("myBtn").innerHTML =loan;
+document.getElementById("info").innerHTML =loan_info;
+}
+else if(x=="Loan" && y=="Savings Account")
+{
+document.getElementById("myButton1").innerHTML=loan;
+document.getElementById("myBtn").innerHTML =saving;
+document.getElementById("info").innerHTML = saving_info;
+}
+else if(x=="Current Account" && y=="Loan"){
+document.getElementById("myButton1").innerHTML=current;
+document.getElementById("myBtn").innerHTML =loan;
+document.getElementById("info").innerHTML = loan_info;
+}
+else if(x=="Loan" && y=="Current Account")
+{
+document.getElementById("myButton1").innerHTML=loan;
+document.getElementById("myBtn").innerHTML =current;
+document.getElementById("info").innerHTML =current_info;
+}
+else if(x=="Credit Card" && y=="Savings Account"){
+document.getElementById("myButton1").innerHTML=credit;
+document.getElementById("myBtn").innerHTML =saving;
+document.getElementById("info").innerHTML = saving_info;
+}
+else if(x=="Savings Account" && y=="Credit Card")
+{
+document.getElementById("myButton1").innerHTML=saving;
+document.getElementById("myBtn").innerHTML =credit;
+document.getElementById("info").innerHTML = credit_info;
+}
+else if(x=="Current Account" && y=="Savings Account"){
+document.getElementById("myButton1").innerHTML=current;
+document.getElementById("myBtn").innerHTML =saving;
+document.getElementById("info").innerHTML = saving_info;
+}
+else if(x=="Savings Account" && y=="Current Account")
+{
+document.getElementById("myButton1").innerHTML=saving;
+document.getElementById("myBtn").innerHTML =current;
+document.getElementById("info").innerHTML =current_info;
+}
+else if(x=="Credit Card" && y=="Current Account"){
+document.getElementById("myButton1").innerHTML=credit;
+document.getElementById("myBtn").innerHTML =current;
+document.getElementById("info").innerHTML = current_info;
+}
+else if(x=="Current Account" && y=="Credit Card")
+{
+document.getElementById("myButton1").innerHTML=current;
+document.getElementById("myBtn").innerHTML =credit;
+document.getElementById("info").innerHTML = credit_info;
+}
+}
+click2(){
+var x1 = document.getElementById("myBtn").textContent;
+var y1 = document.getElementById("myButton2").textContent;
+
+if(x1=="Credit Card" && y1=="Savings Account"){
+document.getElementById("myButton2").innerHTML=credit;
+document.getElementById("myBtn").innerHTML =saving;
+document.getElementById("info").innerHTML = saving_info;
+}
+else if(x1=="Savings Account" && y1=="Credit Card")
+{
+document.getElementById("myButton2").innerHTML=saving;
+document.getElementById("myBtn").innerHTML =credit;
+document.getElementById("info").innerHTML = credit_info;
+}
+else if(x1=="Loan" && y1=="Savings Account"){
+document.getElementById("myButton2").innerHTML=loan;
+document.getElementById("myBtn").innerHTML =saving;
+document.getElementById("info").innerHTML =saving_info;
+}
+else if(x1=="Savings Account" && y1=="Loan")
+{
+document.getElementById("myButton2").innerHTML=saving;
+document.getElementById("myBtn").innerHTML =loan;
+document.getElementById("info").innerHTML =loan_info;
+}
+else if(x1=="Current Account" && y1=="Savings Account"){
+document.getElementById("myButton2").innerHTML=current;
+document.getElementById("myBtn").innerHTML =saving;
+document.getElementById("info").innerHTML = saving_info;
+}
+else if(x1=="Savings Account" && y1=="Current Account")
+{
+document.getElementById("myButton2").innerHTML=saving;
+document.getElementById("myBtn").innerHTML =current;
+document.getElementById("info").innerHTML =current_info;
+}
+else if(x1=="Credit Card" && y1=="Loan"){
+document.getElementById("myButton2").innerHTML=credit;
+document.getElementById("myBtn").innerHTML =loan;
+document.getElementById("info").innerHTML = loan_info;
+}
+else if(x1=="Loan" && y1=="Credit Card")
+{
+document.getElementById("myButton2").innerHTML=loan;
+document.getElementById("myBtn").innerHTML =credit;
+document.getElementById("info").innerHTML = credit_info;
+}
+else if(x1=="Current Account" && y1=="Loan"){
+document.getElementById("myButton2").innerHTML=current;
+document.getElementById("myBtn").innerHTML =loan;
+document.getElementById("info").innerHTML = loan_info;
+}
+else if(x1=="Loan" && y1=="Current Account")
+{
+document.getElementById("myButton2").innerHTML=loan;
+document.getElementById("myBtn").innerHTML =current;
+document.getElementById("info").innerHTML =current_info;
+}
+else if(x1=="Credit Card" && y1=="Current Account"){
+document.getElementById("myButton2").innerHTML=credit;
+document.getElementById("myBtn").innerHTML =current;
+document.getElementById("info").innerHTML = current_info;
+}
+else if(x1=="Current Account" && y1=="Credit Card")
+{
+document.getElementById("myButton2").innerHTML=current;
+document.getElementById("myBtn").innerHTML =credit;
+document.getElementById("info").innerHTML = credit_info;
+}
+}
+click3(){
+var x1 = document.getElementById("myBtn").textContent;
+var y1 = document.getElementById("myButton3").textContent;
+
+if(x1=="Credit Card" && y1=="Current Account"){
+document.getElementById("myButton3").innerHTML=credit;
+document.getElementById("myBtn").innerHTML =current;
+document.getElementById("info").innerHTML = current_info;
+}
+else if(x1=="Current Account" && y1=="Credit Card")
+{
+document.getElementById("myButton3").innerHTML=current;
+document.getElementById("myBtn").innerHTML =credit;
+document.getElementById("info").innerHTML = credit_info;
+}
+else if(x1=="Loan" && y1=="Current Account"){
+document.getElementById("myButton3").innerHTML=loan;
+document.getElementById("myBtn").innerHTML =current;
+document.getElementById("info").innerHTML = current_info;
+}
+else if(x1=="Current Account" && y1=="Loan")
+{
+document.getElementById("myButton3").innerHTML=current;
+document.getElementById("myBtn").innerHTML =loan;
+document.getElementById("info").innerHTML = loan_info;
+}
+else if(x1=="Savings Account" && y1=="Current Account"){
+document.getElementById("myButton3").innerHTML=saving;
+document.getElementById("myBtn").innerHTML =current;
+document.getElementById("info").innerHTML = current_info;
+}
+else if(x1=="Current Account" && y1=="Savings Account")
+{
+document.getElementById("myButton3").innerHTML=current;
+document.getElementById("myBtn").innerHTML =saving;
+document.getElementById("info").innerHTML =saving_info;
+}
+else if(x1=="Credit Card" && y1=="Loan"){
+document.getElementById("myButton3").innerHTML=credit;
+document.getElementById("myBtn").innerHTML =loan;
+document.getElementById("info").innerHTML = loan_info;
+}
+else if(x1=="Loan" && y1=="Credit Card")
+{
+document.getElementById("myButton3").innerHTML=loan;
+document.getElementById("myBtn").innerHTML =credit;
+document.getElementById("info").innerHTML = credit_info;
+}
+else if(x1=="Savings Account" && y1=="Loan"){
+document.getElementById("myButton3").innerHTML=saving;
+document.getElementById("myBtn").innerHTML =loan;
+document.getElementById("info").innerHTML = loan_info;
+}
+else if(x1=="Loan" && y1=="Savings Account")
+{
+document.getElementById("myButton3").innerHTML=loan;
+document.getElementById("myBtn").innerHTML =saving;
+document.getElementById("info").innerHTML = saving_info;
+}
+else if(x1=="Credit Card" && y1=="Savings Account"){
+document.getElementById("myButton3").innerHTML=credit;
+document.getElementById("myBtn").innerHTML =saving;
+document.getElementById("info").innerHTML = saving_info;
+}
+else if(x1=="Savings Account" && y1=="Credit Card")
+{
+document.getElementById("myButton3").innerHTML=saving;
+document.getElementById("myBtn").innerHTML =credit;
+document.getElementById("info").innerHTML = credit_info;
+}
+}
+//--------------------------------------risk------------------------------------------>
+highcharts1 = Highcharts;
+   chartOptions1 = {   
+      chart : {
+        plotBackgroundColor: null,
+        plotBorderWidth: 0,
+        plotShadow: false
+      },
+      title: {
+        text: '',
+        align: 'center',
+        verticalAlign: 'middle',
+        y: 60
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
+    },
+    plotOptions: {
+        pie: {
+            dataLabels: {
+                enabled: true,
+                distance: -50,
+                style: {
+                    fontWeight: 'bold',
+                    textOutline: false 
+                }
+            },
+            startAngle: -90,
+            endAngle: 90,
+            center: ['50%', '75%'],
+            size: '110%'
+        }
+    },
+    series: [{
+        type: 'pie',
+        innerSize: '70%',
+        data: [
+            ['Very Bad', 20],
+            ['Bad', 20],
+            ['Fair', 20],
+            ['Good', 20],
+            ['Excellent', 20]
+        ]
+    }]
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  
 }
