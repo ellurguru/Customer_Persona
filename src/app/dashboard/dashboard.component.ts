@@ -104,6 +104,9 @@ open(content) {
       title: {
         text: ""
       },
+       credits:{
+    enabled:false
+    },
       
       plotOptions: {
         networkgraph: {
@@ -710,51 +713,79 @@ highcharts1 = Highcharts;
       chart : {
         plotBackgroundColor: null,
         plotBorderWidth: 0,
-        plotShadow: false
+        plotShadow: false,
+ margin: [0, 0, 0, 0]
       },
       title: {
-        text: '',
+        text: 'Fair',
         align: 'center',
         verticalAlign: 'middle',
         y: 60
     },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    credits:{
+    enabled:false
     },
-    accessibility: {
-        point: {
-            valueSuffix: '%'
-        }
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}</b>'
     },
     plotOptions: {
-        pie: {
+        pie: {   
+        colors: [
+     '#FF0000', 
+     '#FF4500',
+      '#FF9655',
+     '#64E572', 
+    '#50B432', 
+   ],
             dataLabels: {
                 enabled: true,
-                distance: -50,
+                distance: -25,
                 style: {
                     fontWeight: 'bold',
-                    textOutline: false 
+                    textOutline: false,
+                    color:'black' 
                 }
             },
             startAngle: -90,
             endAngle: 90,
             center: ['50%', '75%'],
-            size: '110%'
+            //size: '110%'
         }
     },
     series: [{
         type: 'pie',
-        innerSize: '70%',
+        innerSize: '50%',
+        allowPointSelect: true,
         data: [
             ['Very Bad', 20],
             ['Bad', 20],
             ['Fair', 20],
             ['Good', 20],
-            ['Excellent', 20]
+            ['Excellent', 20],
         ]
     }]
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+}
 
 
 
