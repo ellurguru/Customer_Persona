@@ -12,7 +12,7 @@
    <div class="row justify-content-center">
      <div class="col-xl-12 order-xl-1 mb-5 mb-xl-0">
         <div class="container-fluid mt--7">
-       <div class="card card-profile shadow" style="height:auto;">                 
+       <div class="card card-profile shadow" style="height:auto;width: auto;background: linear-gradient(to left, white  20%, #FFFAF0 100%)">                 
          <div class="card-body pt-0 pt-md-4">
             
 <div class="abc" style="background-color: #D8BFD8">
@@ -24,14 +24,14 @@
 
  <div class="row">
 
- <div class="col-xl-7">
+ <div class="col-xl-7" style="border-right:ridge;">
     
 
      <div class="table-responsive">
      <table>
         <tr>
           <td style="height:50px;vertical-align: middle;">
-        <img class="img1" src="assets\images\person.jpg" class="rounded-circle" width="170" height="170">
+        <img class="img1" src="assets\images\person.jpg" class="rounded-circle" width="110" height="120">
           </td>
     <td style="vertical-align: top;">
     <table style="table-layout: auto;text-indent:15px; border-spacing:0px;padding: 1px;">
@@ -45,14 +45,15 @@
 
 <tr><td><b><pre style="font-family:Garamond;font-size:17px;">City<br><h3 class="font-weight-light" style="font-family:Courier;">{{details.CITY}}</h3></pre></b></td>
   <td><b><pre style="font-family:Garamond;font-size:17px;">Address<br><h3 class="font-weight-light" style="font-family:Courier;">{{details.ADDRESS_1}}</h3></pre></b></td></tr>
-
  </table>
   </td></tr>  
 </table>
+
 </div>
 </div> 
-<div class="col-xl-5" style="font-family:Garamond;vertical-align: middle;font-size:17px;left: 68px">
-<table><tr><td>
+
+<div class="col-xl-5" style="font-family:Garamond;font-size:17px;left: 50px;">
+<table ><tr><td>
 <div (click)="open(mymodal1)">
        <b>Total Asset</b><br>$1234566
     </div><br>
@@ -64,16 +65,18 @@
     <highcharts-chart
    [Highcharts] = "highcharts1" 
    [options] = "chartOptions1" 
-   style = "width:350px;height:200px;display: block;">
+   style = "width:350px;height:250px;display: block;">
 </highcharts-chart></td></tr>
 </table>
 </div>
+
+
 </div>
   </div></div></div></div></div>
 <br>
 <div style="text-align:center;">
   <div class="card-body pt-0 pt-md-4">
-  <div class="card card-profile shadow" style="height:auto;padding-top: 30px;">  
+  <div class="card card-profile shadow" style="height:auto;padding-top: 30px;background: linear-gradient(to left, white  0%, #FFFAF0 100%)">  
 <form>
   <mat-form-field appearance="fill">
     <mat-label>Select from date</mat-label>
