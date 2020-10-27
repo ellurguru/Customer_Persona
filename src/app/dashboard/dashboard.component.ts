@@ -786,23 +786,3 @@ highcharts1 = Highcharts;
 
  
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-}
